@@ -1,24 +1,8 @@
 
 page_login_entrance={}
 page_login_entrance.button_wx={}
-page_login_entrance.button_wx.colors={
-	{
-		{  491,  547, 0xf0f5f6},
-		{  475,  540, 0x81e70c},
-		{  510,  538, 0x8cae65},
-		{  676,  540, 0x8cad64},
-	},
-	{
-		{  471,  539, 0x81e809},
-		{  492,  549, 0xeaf1f5},
-		{  564,  527, 0x90b163},
-	}, 
-	{
-		{  471,  539, 0x81e809},
-		{  492,  549, 0xeaf1f5},
-		{  564,  527, 0x90b163},
-	}}
-page_login_entrance.button_wx.click_xy={564,  527}
+page_login_entrance.button_wx.colors={{{  500,  504, 0x30be1a},{  486,  519, 0xffffff},{  472,  510, 0xb3dd61},{  516,  508, 0xffffff},{  506,  527, 0x17b413},}}
+page_login_entrance.button_wx.click_xy={506,  527}
 page_login_entrance.button_wx.logmsg="选择微信登陆"
 
 
@@ -239,12 +223,11 @@ end
 
 
 page_popup={}
-page_popup.new_version_update={
-	{  527,  192, 0xbcb09c},
-	{  583,  194, 0x381e07},
-	{  386,  274, 0x381e07},
-	{  685,  423, 0xe3aa51},
-}
+page_popup.new_version_update={}
+page_popup.new_version_update.color={{  931,   85, 0x30e4f4},{  949,   87, 0x2bcae2},{  947,   99, 0x2db9e5},{  938,   93, 0x32cee9},}
+page_popup.new_version_update.logmsg="版本更新公告"
+
+
 page_popup.tips_ok1={}		
 page_popup.tips_ok1.color={
 	{  548,  190, 0x381e07},
@@ -365,15 +348,7 @@ page_popup.no_push_notice.color = {
 page_popup.no_push_notice.logmsg="推送通知，不允许"	
 
 
-page_popup.new_version_update={}
-page_popup.new_version_update.color = {
-	{  548,  190, 0x381e07},
-	{  583,  197, 0x381e07},
-	{  658,  414, 0xedc56f},
-	{  678,  421, 0xfff8d5},
-}
 
-page_popup.new_version_update.logmsg="版本更新"
 
 page_popup.put_on={}		
 page_popup.put_on.color = {
@@ -1403,11 +1378,11 @@ end
 Colors.func_list_login= function ()
 	local v_list = List.new()
 	List.pushlast(v_list,page_login_entrance.button_wx)
-List.pushlast(v_list,page_login_entrance.button_besure_wx)
-List.pushlast(v_list,page_popup.tips_ok1)
-List.pushlast(v_list,page_login_entrance.enter_game)
-List.pushlast(v_list,page_login_entrance.create_player)
-List.pushlast(v_list,page_login_entrance.player_enter_game)
+--List.pushlast(v_list,page_login_entrance.button_besure_wx)
+--List.pushlast(v_list,page_popup.tips_ok1)
+--List.pushlast(v_list,page_login_entrance.enter_game)
+--List.pushlast(v_list,page_login_entrance.create_player)
+--List.pushlast(v_list,page_login_entrance.player_enter_game)
 	return v_list
 end
 
@@ -1433,9 +1408,9 @@ end
 
 Colors.func_list_popup = function ()
 local v_list = List.new()
-List.pushlast(v_list,page_popup.use_money)
-List.pushlast(v_list,page_popup.put_on)
-List.pushlast(v_list,page_popup.use)
+List.pushlast(v_list,page_popup.new_version_update)
+--List.pushlast(v_list,page_popup.put_on)
+--List.pushlast(v_list,page_popup.use)
 return v_list
 end
 

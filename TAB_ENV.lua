@@ -6,6 +6,7 @@ local TAB_ENV={
 	FIRST_TIME_OF_DAY = false,
 	LUA_VERSION="TOUCH", --XXT
 	log_file = "tianlong.log",
+	iphone_path="/var/mobile/Media/TouchSprite/lua/",
 	SCRIPT_VERSION = "1.0.0",
 	--没有找到稀世，等待xx秒切换下一个角色
 	CHANGE_TIME=90,

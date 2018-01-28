@@ -1,28 +1,16 @@
---require("TSLib")
-local BB = require('tools')
+require("TSLib")
+local ts = require("ts")--使用扩展库前必须插入这一句
+local json = ts.json--使用JSON 模块前必须插入这一句
+
+local thrd = require('thread')
 local env = require("TAB_ENV")
---BB.print_r({122323,23234})
-
-local cc = require("VAR_SERIALIZE")
-
-local xx = cc.THIRD_CHARACTOR
 
 local co = require("Colors")
 
-
---print(str1)
-
---toast(str1,3)
 local common = require("COMMON_TOOLS")
 
---local ENV= require("TAB_ENV")
-
 --mSleep(1000)
---toast(xx)
-mSleep(1000)
-toast( common.trim('    100   '))
-
-
+--toast( common.trim('    100   '))
 
 if env.LUA_VERSION == "TOUCH" then
 	open_app= runApp
@@ -43,7 +31,7 @@ if env.LUA_VERSION == "TOUCH" then
 	set_screen_light = setBacklightLevel
 	get_screen_light = getBacklightLevel
 	keep_screen = keepScreen
-
+	is_running = appIsRunning
 elseif env.LUA_VERSION == "XXT" then
 	open_app= app.run
 	close_app= app.close
@@ -63,8 +51,10 @@ elseif env.LUA_VERSION == "XXT" then
 	get_screen_light = device.brightness
 	keep_screen = screen.keep
 	unkeep_screen = screen.unkeep
+	is_running = app.is_running
 end
---log_file = "tianlong.log"
+
+init_screen(1)
 if env.LUA_VERSION == "TOUCH" then
 	init_log(env.log_file, 1)
 end	
@@ -95,85 +85,6 @@ function shake_screen()
 	set_screen_light(br)
 end
 
---[[
-List ={}
-function List.new()
-	return {first=0,last = -1 }
-end
-
-function List.pushfirst(list,value)
-	local first = list.first -1
-	list.first = first
-	list[first] = value
-end
-
-function List.pushlast(list,value)
-	local last = list.last +1
-	list.last= last
-	list[last] = value
-end
-
-function List.popfirst(list)
-	local first = list.first
-	if first > list.last then error("list is empty") end
-	local value= list[first]
-	list[first] = nil
-	list.first= first +1
-	return value
-end
-
-function List.getfirst(list)
-	local first = list.first
-	if first > list.last then error("list is empty") end
-	local value= list[first]
-	--list[first] = nil
-	--list.first= first +1
-	return value
-end
-
-function List.poplast(list)
-	local last = list.last
-	if list.first > last then error("list is empty") end
-	local value = list[last]
-	list[last]= nil
-	list.last = last -1
-	return value
-end
-
-function List.popList (list1,k1)
-	if getListSize(list1) > 2 then
-		for k,v in pairs(list1) do			
-			local value= list1[k1]
-			print(value)
-			list1[k1] = nil
-
-			if k1 == list1.last then
-				local last = list1.last
-				local value = list1[last]
-				if list1.first ~= list1.last then
-					list1.last = last -1
-				end
-
-			end
-
-			if k1 == list1.first then
-				local first = list1.first				
-				local value= list1[first]				
-				if list1.first ~= list1.last then
-					list1.first= first +1
-				end
-			end
-		end
-	end
-end
-
-function  getListSize(list1)	
-	return list1.last + 1
-end	
-
-
-]]--
-
 function getClickXY(color_arr)
 	local click_index = #color_arr
 	local click_xy = color_arr[click_index] 
@@ -184,13 +95,246 @@ function getClickXY(color_arr)
 end
 
 function mrsleep(ss)
-	local n1= getRandomNum(ss*0.3) 
+	local n1= common.getRandomNum(ss*0.3) 
 	--nLog(ss+n1)
-	mmsleep(ss+n1)
+	--mmsleep(ss+n1)
 end
 
 
-wwlog("sdfsdfsdf111")
---shake_screen()
 
-local str1 =BB.table_to_str(co.func_list_xishi_map())
+function dosomething2(v_color,v)
+	--dialog("114", 0)
+	if v.click_xy ~= nil then
+		--dialog("108", 2)
+		local click_x,click_y = getClickXY({v.click_xy})	
+		--dialog(click_x, 2)
+		--dialog(click_y, 2)
+		--mSleep(3000)
+		tap(click_x,  click_y)
+	else
+		if v.foo ~= nil then
+			v.foo()		
+		else	
+			local click_x,click_y = getClickXY(v_color)	
+			ltap(click_x,  click_y)
+		end	
+	end
+	--dialog("126", 0)
+end
+
+function task_by_loop2(list1)
+	local ret = nil	
+	for k,v in pairs (list1) do			
+		if k ~= 'first' and k ~= 'last' then			
+			local colors
+			if v.color ~= nil then
+				colors = {v.color}
+			else
+				colors = v.colors
+			end
+			for k1,v1 in pairs(colors )	do
+				--wwlog(common.table_to_str(v1))
+				--wwlog(common.table_to_str({{  931,   85, 0x30e4f4},{  949,   87, 0x2bcae2},{  947,   99, 0x2db9e5},{  938,   93, 0x32cee9},}))
+				if multi_col(v1) ==true then
+				--if multi_col({{  931,   85, 0x30e4f4},{  949,   87, 0x2bcae2},{  947,   99, 0x2db9e5},{  938,   93, 0x32cee9},}) then 
+				--if false then
+					toast("142", 3)
+					ret = "in"					
+					wwlog(v.logmsg)
+					--dialog("141", 0)
+					--dialog("131", 0)
+					dosomething2(v1,v)
+					dialog("148", 0)
+					--mrsleep(SLEEP_TIME)
+					--[[
+					if v.following_function then
+						ret = "following_function"						
+					end	
+					--]]
+					if v.once ~= nil then
+						List.popList(list1,k)
+					end
+					if v.end_color then
+						ret = "end_color"						
+					end	
+					break
+				end				
+			end	
+			if ret == "end_color" then
+				break
+			end
+		end		
+	end
+	return ret
+end
+
+
+
+mrsleep(1000)
+if is_running("com.tencent.smoba")==1 then
+	wwlog("游戏正在运行")
+else
+	open_app("com.tencent.smoba")
+end
+
+---[[
+if front_app() == "com.tencent.xin" then
+	wwlog("74 微信程序ing...")
+elseif  front_app() ~= "com.tencent.smoba" then
+	mrsleep(200)
+	open_app("com.tencent.smoba")
+	wwlog("game start")
+	mrsleep(500)		
+end
+--]]
+
+
+function func_logon(...)
+	while (true) do	
+		--mrsleep(1000)
+		local list1 = co.func_list_login()
+
+		--dialog(json.encode(list1))
+
+		--mrsleep(1000)
+		local ret = task_by_loop2(list1)
+		if ret ~= nil then
+			dialog(ret, 2)		
+		end
+		mSleep(3000)
+	end
+end
+
+function func_popup1(...)
+	while (true) do	
+		toast("sub thread 2 over",1)
+		local list1 = co.func_list_popup()
+		
+		local ret = task_by_loop2(list1)
+		if ret ~= nil then
+			dialog(ret, 2)		
+		end
+		mSleep(3000)
+	end
+end
+
+
+
+function func_main_thread_call_back()
+	dialog("func_main_thread_call_back", 1)
+	--mrsleep(1000)
+end
+
+--主线程
+local thread_id = thrd.create(function()
+		--创建子协程--登陆
+		local sub_thread_id_1 = thrd.createSubThread(function()
+				func_logon()			
+				print(nil)
+			end
+			,{
+				callBack = function()
+					--协程结束会调用，不论是错误、异常、正常结束
+					print(nil)
+					--dialog("267 协程结束了", 0)					
+				end,
+				errorBack = function(err)
+					--协程错误结束，一般是引用空调用,err是字符串
+					dialog("166 协程错误了:")
+					dialog(err,0)
+				end,
+				catchBack = function(exp)
+					--协程异常结束,异常是脚本调用了throw激发的,exp是table，exp.message是异常原因
+					--local sz = require('sz')
+					--local cjson = sz.json
+					dialog("290 协程异常了\n"..json.encode(exp),0)
+				end
+			}
+		)
+		thrd.setTimeout(10000,sub_thread_id_1)
+
+		---[[
+		local sub_thread_id_2 = thrd.createSubThread(function()
+
+				
+				func_popup1()
+				--因为sub thread 2比parent thread运行时间长，所以以下代码实际执行不到
+
+			end
+			,{
+				callBack = function()
+					--协程结束会调用，不论是错误、异常、正常结束
+					--mrsleep(1000)
+					print(nil)
+					--dialog("189 协程结束了", 0)					
+				end,
+				errorBack = function(err)
+					--协程错误结束，一般是引用空调用,err是字符串
+					dialog("194 协程错误了:"..err,0)
+				end,
+				catchBack = function(exp)
+					--协程异常结束,异常是脚本调用了throw激发的,exp是table，exp.message是异常原因
+					--local sz = require('sz')
+					--local cjson = sz.json
+					dialog("200 协程异常了\n"..json.encode(exp),0)
+				end
+			}
+		)
+		thrd.setTimeout(10000,sub_thread_id_2)
+		--mrsleep(1000)
+		--]]
+		---[[
+		
+		--]]
+		for i =1,5 do
+			mSleep(1000)
+			toast("main thread", 1)
+		end
+		return 200
+	end
+	
+	,{
+		---[[
+		callBack = function()
+			--协程结束会调用，不论是错误、异常、正常结束
+			--mrsleep(1000)
+			func_main_thread_call_back()
+			--toast("325 callback ")
+			--mSleep(2000)
+			--dialog("214 协程结束了", 0)			
+		end,
+		--]]
+		---[[		
+		errorBack = function(err)
+			--协程错误结束，一般是引用空调用,err是字符串
+			dialog("219 协程错误了:"..err,0)
+		end,
+		--]]
+		----[[
+		catchBack = function(exp)
+			--协程异常结束,异常是脚本调用了throw激发的,exp是table，exp.message是异常原因
+			--local sz = require('sz')
+			--local cjson = sz.json
+			dialog("225 协程异常了\n"..json.encode(exp),0)
+		end
+		--]]
+	}	
+)
+
+thrd.setTimeout(10000,thread_id)
+--等待所有协程结束
+--thrd.waitAllThreadExit()
+
+---[[
+local ok,ret = thrd.wait(thread_id)
+if ok==true then
+	--正常结束，ret是协程函数的返回值,这里ret=100
+	toast("wait ok,ret is "..tostring(ret))
+else
+	toast("wait not ok.....,ret is "..tostring(ok),2)
+	--这里不会被执行	
+	--toast("wait thread fail:"..json.encode(ret),6)
+end
+--]]
+
+
