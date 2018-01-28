@@ -6,6 +6,20 @@ page_login_entrance.button_wx.click_xy={506,  527}
 page_login_entrance.button_wx.logmsg="选择微信登陆"
 
 
+page_login_entrance={}
+page_login_entrance.accept_licence={}
+page_login_entrance.accept_licence.colors={{{  541,  493, 0xde9f2b},{  545,  501, 0xffffff},{  561,  500, 0xffffff},{  580,  494, 0xfcfcfc},{  570,  509, 0xde9925},}}
+--page_login_entrance.accept_licence.click_xy={506,  527}
+page_login_entrance.accept_licence.logmsg="用户协议-接受"
+
+
+page_login_entrance={}
+page_login_entrance.back_home={}
+page_login_entrance.back_home.colors={{{   64,   15, 0x0ed1e5},{   84,   24, 0x1ba9ca},{   85,   35, 0x27bbe1},{   54,   44, 0x1face0},{   63,   32, 0x121a2b},}}
+page_login_entrance.back_home.logmsg="登陆游戏过程中点击多了，回到主界面"
+
+
+
 page_login_entrance.button_besure_wx={}
 page_login_entrance.button_besure_wx.color={
 	{  908,  326, 0x04be02},
@@ -16,20 +30,10 @@ page_login_entrance.button_besure_wx.color={
 }
 page_login_entrance.button_besure_wx.logmsg="微信授权-确认登陆"
 
-page_login_entrance.enter_game={}
-page_login_entrance.enter_game.colors={ {
-		{  509,  538, 0xdead64},
-		{  535,  542, 0xf1f5de},
-		{  565,  539, 0xd9a762},
-		{  609,  538, 0xf7f7f3},
-	},
-	{
-		{  504,  531, 0xdeab66},
-		{  546,  537, 0xdcab65},
-		{  576,  535, 0xfdfbf7},
-		{  603,  535, 0xfaf9f4},
-	}}
-page_login_entrance.enter_game.logmsg="进入游戏"
+page_login_entrance.start_game={}
+page_login_entrance.start_game.colors={ {{  507,  518, 0x1763b2},{  517,  517, 0xffffff},{  529,  523, 0xffffff},{  536,  520, 0x1765b9},{  563,  528, 0xffffff},}}
+page_login_entrance.start_game.logmsg="进入游戏"
+page_login_entrance.start_game.overtime=20
 
 
 page_login_entrance.create_player={}
@@ -257,14 +261,23 @@ page_popup.notice_ok1.logmsg="公告，点击确定"
 
 
 page_popup.close_window1={}		
-page_popup.close_window1.color = {
-	{ 1062,   51, 0xfef7b3},
-	{ 1073,   50, 0xfef7b3},
-	{ 1062,   64, 0xfef7b3},
-	{ 1079,   58, 0x542210},
-	{ 1067,   57, 0xfef7b3},
-}
-page_popup.close_window1.logmsg="活动窗口，点击关闭"
+page_popup.close_window1.color = {{  931,   86, 0x31e4f3},{  949,   87, 0x2bcae2},{  948,  102, 0x2ab6e7},{  940,   94, 0x33c9e7},}
+page_popup.close_window1.logmsg="活动窗口1，点击关闭"
+
+page_popup.close_window2={}		
+page_popup.close_window2.color = {{  932,   85, 0x2bc8ce},{  947,   87, 0x28b6c2},{  948,  101, 0x259fc3},{  940,   94, 0x2eb1c3},}
+page_popup.close_window2.logmsg="活动窗口2，点击关闭"
+
+page_popup.close_window3={}		
+page_popup.close_window3.color = {{  968,  108, 0x30e4f3},{  984,  108, 0x2acfe7},{  984,  123, 0x2fb9e7},{  976,  116, 0x2ec8e7},}
+page_popup.close_window3.logmsg="活动窗口3，点击关闭"
+
+page_popup.close_window4={}		
+page_popup.close_window4.color = {{ 1056,  128, 0xfeeeff},{ 1067,  129, 0xfeeeff},{ 1067,  140, 0xfeeeff},{ 1061,  134, 0xfeeeff},}
+page_popup.close_window4.logmsg="活动窗口4，点击关闭"
+
+
+
 
 page_popup.close_welfare_window={}
 page_popup.close_welfare_window.colors={
@@ -1378,9 +1391,11 @@ end
 Colors.func_list_login= function ()
 	local v_list = List.new()
 	List.pushlast(v_list,page_login_entrance.button_wx)
+	List.pushlast(v_list,page_login_entrance.accept_licence)
 --List.pushlast(v_list,page_login_entrance.button_besure_wx)
 --List.pushlast(v_list,page_popup.tips_ok1)
---List.pushlast(v_list,page_login_entrance.enter_game)
+List.pushlast(v_list,page_login_entrance.start_game)
+List.pushlast(v_list,page_login_entrance.back_home)
 --List.pushlast(v_list,page_login_entrance.create_player)
 --List.pushlast(v_list,page_login_entrance.player_enter_game)
 	return v_list
@@ -1409,6 +1424,10 @@ end
 Colors.func_list_popup = function ()
 local v_list = List.new()
 List.pushlast(v_list,page_popup.new_version_update)
+List.pushlast(v_list,page_popup.close_window1)
+List.pushlast(v_list,page_popup.close_window2)
+List.pushlast(v_list,page_popup.close_window3)
+List.pushlast(v_list,page_popup.close_window4)
 --List.pushlast(v_list,page_popup.put_on)
 --List.pushlast(v_list,page_popup.use)
 return v_list

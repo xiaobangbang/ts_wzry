@@ -110,11 +110,12 @@ function dosomething2(v_color,v)
 		--dialog(click_x, 2)
 		--dialog(click_y, 2)
 		--mSleep(3000)
-		tap(click_x,  click_y)
+		ltap(click_x,  click_y)
 	else
 		if v.foo ~= nil then
 			v.foo()		
-		else	
+		else
+			--dialog("114", 0)
 			local click_x,click_y = getClickXY(v_color)	
 			ltap(click_x,  click_y)
 		end	
@@ -138,13 +139,13 @@ function task_by_loop2(list1)
 				if multi_col(v1) ==true then
 				--if multi_col({{  931,   85, 0x30e4f4},{  949,   87, 0x2bcae2},{  947,   99, 0x2db9e5},{  938,   93, 0x32cee9},}) then 
 				--if false then
-					toast("142", 3)
+					--toast("142", 3)
 					ret = "in"					
 					wwlog(v.logmsg)
 					--dialog("141", 0)
 					--dialog("131", 0)
 					dosomething2(v1,v)
-					dialog("148", 0)
+					--dialog("148", 0)
 					--mrsleep(SLEEP_TIME)
 					--[[
 					if v.following_function then
@@ -156,6 +157,10 @@ function task_by_loop2(list1)
 					end
 					if v.end_color then
 						ret = "end_color"						
+					end	
+					if v.overtime then
+						wwlog("overtime"..tostring(v.overtime))
+						mmsleep(v.overtime * 1000)					
 					end	
 					break
 				end				
@@ -175,31 +180,26 @@ if is_running("com.tencent.smoba")==1 then
 	wwlog("游戏正在运行")
 else
 	open_app("com.tencent.smoba")
+	mrsleep(10000)	
 end
 
 ---[[
 if front_app() == "com.tencent.xin" then
 	wwlog("74 微信程序ing...")
-elseif  front_app() ~= "com.tencent.smoba" then
-	mrsleep(200)
+elseif  front_app() ~= "com.tencent.smoba" then	
 	open_app("com.tencent.smoba")
 	wwlog("game start")
-	mrsleep(500)		
+	mrsleep(10000)		
 end
 --]]
 
 
 function func_logon(...)
-	while (true) do	
-		--mrsleep(1000)
-		local list1 = co.func_list_login()
-
-		--dialog(json.encode(list1))
-
-		--mrsleep(1000)
+	while (true) do			
+		local list1 = co.func_list_login()		
 		local ret = task_by_loop2(list1)
 		if ret ~= nil then
-			dialog(ret, 2)		
+			wwlog(ret, 2)		
 		end
 		mSleep(3000)
 	end
@@ -207,12 +207,12 @@ end
 
 function func_popup1(...)
 	while (true) do	
-		toast("sub thread 2 over",1)
+		--toast("sub thread 2 over",1)
 		local list1 = co.func_list_popup()
 		
 		local ret = task_by_loop2(list1)
 		if ret ~= nil then
-			dialog(ret, 2)		
+			wwlog(ret, 2)		
 		end
 		mSleep(3000)
 	end
@@ -229,34 +229,31 @@ end
 local thread_id = thrd.create(function()
 		--创建子协程--登陆
 		local sub_thread_id_1 = thrd.createSubThread(function()
-				func_logon()			
-				print(nil)
+				func_logon()				
 			end
 			,{
 				callBack = function()
 					--协程结束会调用，不论是错误、异常、正常结束
-					print(nil)
-					--dialog("267 协程结束了", 0)					
+					
+					wwlog("239 协程结束了", 0)					
 				end,
 				errorBack = function(err)
 					--协程错误结束，一般是引用空调用,err是字符串
-					dialog("166 协程错误了:")
-					dialog(err,0)
+					wwlog("243 协程错误了:")
+					wwlog(err,0)
 				end,
 				catchBack = function(exp)
 					--协程异常结束,异常是脚本调用了throw激发的,exp是table，exp.message是异常原因
 					--local sz = require('sz')
 					--local cjson = sz.json
-					dialog("290 协程异常了\n"..json.encode(exp),0)
+					wwlog("250 协程异常了\n"..json.encode(exp),0)
 				end
 			}
 		)
-		thrd.setTimeout(10000,sub_thread_id_1)
+		thrd.setTimeout(45000,sub_thread_id_1)
 
 		---[[
-		local sub_thread_id_2 = thrd.createSubThread(function()
-
-				
+		local sub_thread_id_2 = thrd.createSubThread(function()				
 				func_popup1()
 				--因为sub thread 2比parent thread运行时间长，所以以下代码实际执行不到
 
@@ -265,30 +262,28 @@ local thread_id = thrd.create(function()
 				callBack = function()
 					--协程结束会调用，不论是错误、异常、正常结束
 					--mrsleep(1000)
-					print(nil)
-					--dialog("189 协程结束了", 0)					
+					
+					wwlog("269 协程结束了", 0)					
 				end,
 				errorBack = function(err)
 					--协程错误结束，一般是引用空调用,err是字符串
-					dialog("194 协程错误了:"..err,0)
+					wwlog("274 协程错误了:"..err,0)
 				end,
 				catchBack = function(exp)
 					--协程异常结束,异常是脚本调用了throw激发的,exp是table，exp.message是异常原因
 					--local sz = require('sz')
 					--local cjson = sz.json
-					dialog("200 协程异常了\n"..json.encode(exp),0)
+					wwlog("279 协程异常了\n"..json.encode(exp),0)
 				end
 			}
 		)
-		thrd.setTimeout(10000,sub_thread_id_2)
-		--mrsleep(1000)
-		--]]
-		---[[
+		thrd.setTimeout(55000,sub_thread_id_2)
 		
-		--]]
-		for i =1,5 do
+		
+		--获取当前时间，并判断是否有定时任务
+		for i =1,60 do
 			mSleep(1000)
-			toast("main thread", 1)
+			wwlog("main thread", 1)
 		end
 		return 200
 	end
@@ -307,7 +302,7 @@ local thread_id = thrd.create(function()
 		---[[		
 		errorBack = function(err)
 			--协程错误结束，一般是引用空调用,err是字符串
-			dialog("219 协程错误了:"..err,0)
+			wwlog("219 协程错误了:"..err,0)
 		end,
 		--]]
 		----[[
@@ -315,13 +310,13 @@ local thread_id = thrd.create(function()
 			--协程异常结束,异常是脚本调用了throw激发的,exp是table，exp.message是异常原因
 			--local sz = require('sz')
 			--local cjson = sz.json
-			dialog("225 协程异常了\n"..json.encode(exp),0)
+			wwlog("225 协程异常了\n"..json.encode(exp),0)
 		end
 		--]]
 	}	
 )
 
-thrd.setTimeout(10000,thread_id)
+thrd.setTimeout(60000,thread_id)
 --等待所有协程结束
 --thrd.waitAllThreadExit()
 
