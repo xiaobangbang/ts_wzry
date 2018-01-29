@@ -4,13 +4,9 @@ local json = ts.json--使用JSON 模块前必须插入这一句
 
 local thrd = require('thread')
 local env = require("TAB_ENV")
-
 local co = require("Colors")
-
 local common = require("COMMON_TOOLS")
 
---mSleep(1000)
---toast( common.trim('    100   '))
 
 if env.LUA_VERSION == "TOUCH" then
 	open_app= runApp
@@ -96,31 +92,60 @@ end
 
 function mrsleep(ss)
 	local n1= common.getRandomNum(ss*0.3) 
-	--nLog(ss+n1)
-	--mmsleep(ss+n1)
+	nLog(ss+n1)
+	mmsleep(ss+n1)
 end
 
-
+function task_by_foo2(list1)
+	local ret = nil
+	for k,v in pairs (list1) do	
+		if k ~= 'first' and k ~= 'last' then
+			local colors
+			if v.color ~= nil then
+				colors = {v.color}
+			else
+				colors = v.colors
+			end
+			for k1,v1 in pairs(colors )	do 
+				if multi_col(v1) then
+					wwlog(v.logmsg)
+					--[[
+					if list1.first <= list1.last then
+						List.popfirst(list1)
+					end
+					--]]
+					--[[
+					if v.once ~= nil then
+						List.popList(list1,k)
+					end
+					--]]
+					if v.foo2 ~= nil then
+						return v.foo2()		
+					end
+				end				
+			end				
+		end		
+	end
+	return ret
+end
 
 function dosomething2(v_color,v)
-	--dialog("114", 0)
+	
 	if v.click_xy ~= nil then
-		--dialog("108", 2)
+		
 		local click_x,click_y = getClickXY({v.click_xy})	
-		--dialog(click_x, 2)
-		--dialog(click_y, 2)
-		--mSleep(3000)
+		
 		ltap(click_x,  click_y)
 	else
 		if v.foo ~= nil then
 			v.foo()		
 		else
-			--dialog("114", 0)
+	
 			local click_x,click_y = getClickXY(v_color)	
 			ltap(click_x,  click_y)
 		end	
 	end
-	--dialog("126", 0)
+	
 end
 
 function task_by_loop2(list1)
@@ -134,9 +159,7 @@ function task_by_loop2(list1)
 				colors = v.colors
 			end
 			for k1,v1 in pairs(colors )	do
-				--wwlog(common.table_to_str(v1))
-				--wwlog(common.table_to_str({{  931,   85, 0x30e4f4},{  949,   87, 0x2bcae2},{  947,   99, 0x2db9e5},{  938,   93, 0x32cee9},}))
-				--dialog("140", 0)
+				
 				if multi_col(v1) ==true then
 				
 				--if multi_col({	{  620,  574, 0xffffff},	{  613,  579, 0xf8f8f8},	{  630,  575, 0xfdfdfd},	{  658,  576, 0xffffff},}) then 
@@ -148,13 +171,7 @@ function task_by_loop2(list1)
 					--dialog("141", 0)
 					--dialog("131", 0)
 					dosomething2(v1,v)
-					--dialog("148", 0)
-					--mrsleep(SLEEP_TIME)
-					--[[
-					if v.following_function then
-						ret = "following_function"						
-					end	
-					--]]
+					
 					if v.once ~= nil then
 						List.popList(list1,k)
 					end
@@ -196,6 +213,16 @@ elseif  front_app() ~= "com.tencent.smoba" then
 end
 --]]
 
+function func_get_stage(...)
+	local ret = nil
+	--while (true) do			
+		local list1 = co.func_list_get_stage()		
+		ret = task_by_foo2(list1)
+		--if ret ~= nil then 			break			end
+		mSleep(3000)
+	--end
+	return ret
+end
 
 function func_logon(...)
 	while (true) do			
@@ -221,23 +248,38 @@ function func_popup1(...)
 	end
 end
 
-
+function func_adventure(...)
+	while (true) do	
+		--toast("sub thread 2 over",1)
+		local list1 = co.func_list_adventure()
+		
+		local ret = task_by_loop2(list1)
+		if ret ~= nil then
+			wwlog(ret, 2)		
+		end
+		mSleep(3000)
+	end
+end
 
 function func_main_thread_call_back()
 	dialog("func_main_thread_call_back", 1)
 	--mrsleep(1000)
 end
 
+local stage=nil
 --主线程
 local thread_id = thrd.create(function()
 		--创建子协程--登陆
+		stage=func_get_stage()
+		--dialog(stage, 3)
+		--if stage == nil or  stage~="home_page" then 
 		local sub_thread_id_1 = thrd.createSubThread(function()
-				func_logon()				
+				func_logon()
+				--thread.throw("协程抛出异常")
 			end
 			,{
 				callBack = function()
-					--协程结束会调用，不论是错误、异常、正常结束
-					
+				
 					wwlog("239 协程结束了", 0)					
 				end,
 				errorBack = function(err)
@@ -246,9 +288,7 @@ local thread_id = thrd.create(function()
 					wwlog(err,0)
 				end,
 				catchBack = function(exp)
-					--协程异常结束,异常是脚本调用了throw激发的,exp是table，exp.message是异常原因
-					--local sz = require('sz')
-					--local cjson = sz.json
+					--协程异常结束,异常是脚本调用了throw激发的,exp是table，exp.message是异常原因					
 					wwlog("250 协程异常了\n"..json.encode(exp),0)
 				end
 			}
@@ -280,46 +320,66 @@ local thread_id = thrd.create(function()
 				end
 			}
 		)
-		thrd.setTimeout(55000,sub_thread_id_2)
+		thrd.setTimeout(30000,sub_thread_id_2)
 		
-		
+		--thrd.wait(sub_thread_id_2)
+	--end 
+	--if stage =="home_page"  then 
+		local sub_thread_3 = thrd.createSubThread(function()				
+				func_adventure()
+				--因为sub thread 2比parent thread运行时间长，所以以下代码实际执行不到
+
+			end
+			,{
+				callBack = function()
+					--协程结束会调用，不论是错误、异常、正常结束
+					--mrsleep(1000)
+					
+					wwlog("280 协程结束了", 0)					
+				end,
+				errorBack = function(err)
+					--协程错误结束，一般是引用空调用,err是字符串
+					wwlog("284 协程错误了:"..err,0)
+				end,
+				catchBack = function(exp)
+					--协程异常结束,异常是脚本调用了throw激发的,exp是table，exp.message是异常原因
+					--local sz = require('sz')
+					--local cjson = sz.json
+					wwlog("290 协程异常了\n"..json.encode(exp),0)
+				end
+			}
+		)
+		--end 
+				
 		--获取当前时间，并判断是否有定时任务
-		for i =1,60 do
-			mSleep(1000)
-			wwlog("main thread", 1)
+		while true do
+			mSleep(3000)
+			stage=func_get_stage()
+			local tt=os.date("*t",os.time())
+			local cur_time = os.date("%Y-%m-%d %H:%M:%S",os.time())
+			wwlog("main thread:"..cur_time, 1)
 		end
 		return 200
 	end
 	
-	,{
-		---[[
-		callBack = function()
-			--协程结束会调用，不论是错误、异常、正常结束
-			--mrsleep(1000)
-			func_main_thread_call_back()
-			--toast("325 callback ")
-			--mSleep(2000)
-			--dialog("214 协程结束了", 0)			
+	,{		
+		callBack = function()			
+			func_main_thread_call_back()				
 		end,
-		--]]
-		---[[		
+		
 		errorBack = function(err)
 			--协程错误结束，一般是引用空调用,err是字符串
 			wwlog("219 协程错误了:"..err,0)
 		end,
-		--]]
-		----[[
+		
 		catchBack = function(exp)
-			--协程异常结束,异常是脚本调用了throw激发的,exp是table，exp.message是异常原因
-			--local sz = require('sz')
-			--local cjson = sz.json
+			--协程异常结束,异常是脚本调用了throw激发的,exp是table，exp.message是异常原因		
 			wwlog("225 协程异常了\n"..json.encode(exp),0)
-		end
-		--]]
+		end		
 	}	
 )
 
-thrd.setTimeout(60000,thread_id)
+--thrd.setTimeout(60000,thread_id)
 --等待所有协程结束
 --thrd.waitAllThreadExit()
 
@@ -330,8 +390,7 @@ if ok==true then
 	toast("wait ok,ret is "..tostring(ret))
 else
 	toast("wait not ok.....,ret is "..tostring(ok),2)
-	--这里不会被执行	
-	--toast("wait thread fail:"..json.encode(ret),6)
+	
 end
 --]]
 

@@ -21,6 +21,7 @@ page_login_entrance.new_version_update.color={
 	{  770,  583, 0x1c95d7},	
 }
 page_login_entrance.new_version_update.click_xy={634,  576}
+page_login_entrance.new_version_update.overtime=60
 page_login_entrance.new_version_update.logmsg="版本更新公告"
 
 
@@ -31,6 +32,62 @@ page_login_entrance.back_home={}
 page_login_entrance.back_home.colors={{{   64,   15, 0x0ed1e5},{   84,   24, 0x1ba9ca},{   85,   35, 0x27bbe1},{   54,   44, 0x1face0},{   63,   32, 0x121a2b},}}
 page_login_entrance.back_home.logmsg="登陆游戏过程中点击多了，回到主界面"
 
+page_login_entrance.get_location={}
+page_login_entrance.get_location.colors={{{  694,  394, 0x007aff},{  697,  408, 0x007aff},{  708,  400, 0x007aff},{  709,  414, 0x007aff},}}
+page_login_entrance.get_location.logmsg="王者荣耀使用当前位置"
+
+
+page_login_entrance.sevendays_logon={}
+page_login_entrance.sevendays_logon.colors={{{  661,   84, 0xffffff},{  642,   95, 0xffffff},{  611,   98, 0xffffff},{  974,   88, 0x38cdea},{ 1022,  569, 0xe5a61b},}}
+page_login_entrance.sevendays_logon.logmsg="七天累计登陆-点击领取"
+--[[
+page_login_entrance.sevendays_logon.foo= function ()  
+	ltap(1022,  569) --点击领取
+	mmsleep(5000)
+	ltap(974,   88) --点击关闭X	
+end
+--]]
+page_adventure={}
+page_adventure.adventure_mode={}
+page_adventure.adventure_mode.colors={{{  902,  482, 0xeeeae5},{  938,  486, 0xe4ded2},{  958,  480, 0xededed},{  978,  482, 0xdad4cd},}}
+page_adventure.adventure_mode.logmsg="冒险模式"
+
+
+--page_adventure={}
+page_adventure.challenge_mode={}
+page_adventure.challenge_mode.colors={{{  539,  488, 0xffffff},{  177,   27, 0xffffff},{  225,   32, 0xfefefe},{  558,  498, 0xf6fbff},{  571,  501, 0xffffff},}}
+page_adventure.challenge_mode.logmsg="挑战模式"
+
+page_adventure.next_step={}
+page_adventure.next_step.colors={{{   55,   15, 0x0ecde3},{   69,   15, 0x0dcde2},{  917,  572, 0x37a2d7},{  924,  573, 0xffffff},{  957,  572, 0xffffff},}}
+page_adventure.next_step.logmsg="选择关卡，点击下一步"
+
+page_adventure.break_through={}
+page_adventure.break_through.colors={{{   57,   15, 0x0ecee3},{  834,  536, 0xe5a129},{  840,  538, 0xffffff},{  860,  542, 0xffffff},{  887,  538, 0xffffff},}}
+page_adventure.break_through.logmsg="开始闯关"
+
+page_adventure.auto_fighting={}
+page_adventure.auto_fighting.colors={{{ 1047,   33, 0x27aed9},{ 1054,   34, 0x24aed8},{ 1067,   33, 0x2baed9},{ 1058,   39, 0x2090be},{ 1059,   33, 0x13769a},}}
+page_adventure.auto_fighting.logmsg="自动按钮"
+
+page_adventure.anykey_go_on={}
+page_adventure.anykey_go_on.colors={{{  490,  601, 0xffffff},{  507,  602, 0xffffff},{  498,  593, 0xffffff},{  527,  594, 0xffffff},{  553,  602, 0xffffff},}}
+page_adventure.anykey_go_on.logmsg="点击屏幕继续"
+
+page_adventure.once_more={}
+page_adventure.once_more.colors={{{  889,  574, 0xdf9829},{  900,  575, 0xffffff},{  900,  585, 0xffffff},{  932,  582, 0xffffff},{  948,  581, 0xffffff},}}
+page_adventure.once_more.logmsg="再次挑战"
+
+page_main_thread={}
+page_main_thread.home_page={}
+page_main_thread.home_page.colors={{{  940,   26, 0x1e8cc5},{  940,   20, 0x21a2da},{  996,   20, 0x2da7df},{  997,   38, 0x1d8fc7},{  237,   27, 0xfff5c0},{  237,   15, 0xfff9c5},}}
+page_main_thread.home_page.logmsg="判断是否是游戏主界面"
+page_main_thread.home_page.foo2= function()
+		return "home_page"
+	end
+page_main_thread.home_page.wait=10 --等待10秒再多点取色判断
+--主页判断
+--
 
 
 page_login_entrance.button_besure_wx={}
@@ -289,6 +346,15 @@ page_popup.close_window4={}
 page_popup.close_window4.color = {{ 1056,  128, 0xfeeeff},{ 1067,  129, 0xfeeeff},{ 1067,  140, 0xfeeeff},{ 1061,  134, 0xfeeeff},}
 page_popup.close_window4.logmsg="活动窗口4，点击关闭"
 
+page_popup.get_award_diamond={}		
+page_popup.get_award_diamond.color = {{  546,  272, 0xfafafc},{  571,  280, 0xfcf6fd},{  587,  294, 0x925dcd},{  569,  300, 0xe7dafc},}
+page_popup.get_award_diamond.click_xy={565,  440}
+page_popup.get_award_diamond.logmsg="获得奖励-钻石"
+
+page_popup.get_award_rune={}		
+page_popup.get_award_rune.color = {{  562,  273, 0xa6e5f1},{  578,  274, 0x49cae1},{  586,  288, 0x18b3e5},{  578,  298, 0x3ad9ed},{  570,  288, 0x5bd1ea},}
+page_popup.get_award_rune.click_xy={565,  440}
+page_popup.get_award_rune.logmsg="获得奖励-碎片"
 
 
 
@@ -1406,33 +1472,13 @@ Colors.func_list_login= function ()
 	List.pushlast(v_list,page_login_entrance.button_wx)
 	List.pushlast(v_list,page_login_entrance.accept_licence)
 	List.pushlast(v_list,page_login_entrance.new_version_update)
---List.pushlast(v_list,page_popup.tips_ok1)
-List.pushlast(v_list,page_login_entrance.start_game)
-List.pushlast(v_list,page_login_entrance.back_home)
---List.pushlast(v_list,page_login_entrance.create_player)
+	List.pushlast(v_list,page_login_entrance.get_location)
+	List.pushlast(v_list,page_login_entrance.start_game)
+	--List.pushlast(v_list,page_login_entrance.back_home)
+	List.pushlast(v_list,page_login_entrance.sevendays_logon)
 --List.pushlast(v_list,page_login_entrance.player_enter_game)
 	return v_list
 end
-
-
-Colors.func_list_unusual =  function ()
---小窗口
-local v_list = List.new()
-List.pushlast(v_list,page_login_entrance.player_name_exist)
-List.pushlast(v_list,page_login_entrance.player_direct_game)
-List.pushlast(v_list,page_popup.net_lost_window)
-List.pushlast(v_list,page_popup.close_window1)
-
-List.pushlast(v_list,page_popup.notice_ok1)
-List.pushlast(v_list,page_popup.first_scene)
-List.pushlast(v_list,page_popup.no_push_notice)
-List.pushlast(v_list,page_popup.new_version_update)
-
-List.pushlast(v_list,page_popup.net_retry)
-
-return v_list
-end
-
 
 Colors.func_list_popup = function ()
 local v_list = List.new()
@@ -1441,82 +1487,34 @@ List.pushlast(v_list,page_popup.close_window1)
 List.pushlast(v_list,page_popup.close_window2)
 List.pushlast(v_list,page_popup.close_window3)
 List.pushlast(v_list,page_popup.close_window4)
---List.pushlast(v_list,page_popup.put_on)
---List.pushlast(v_list,page_popup.use)
+List.pushlast(v_list,page_popup.get_award_diamond)
+List.pushlast(v_list,page_popup.get_award_rune)
 return v_list
 end
 
-Colors.func_list_training =  function ()
-	local v_list = List.new()
-	--移动到第一个光圈
-	List.pushlast(v_list,page_training.in_game_training)
---跳过动画
-	List.pushlast(v_list,page_training.skip_scene)
---移动到第二个光圈
-	List.pushlast(v_list,page_training.in_game_training)
---攻击4个强盗
-	List.pushlast(v_list,page_training.first_attack)
---移动到第三个光圈--需要两次移动
-	List.pushlast(v_list,page_training.in_game_training)
-	List.pushlast(v_list,page_training.in_game_training)
---动画过后，移动到第四个光圈--需要两次移动
-	List.pushlast(v_list,page_training.in_game_training)
-	List.pushlast(v_list,page_training.in_game_training)
---点击技能键释放技能
-	List.pushlast(v_list,page_training.skill_attack)
---领取神器，对抗丁春秋
-	List.pushlast(v_list,page_training.fetch_artifact)
-	return v_list
-end
 
-Colors.func_list_home = function ()
+Colors.func_list_adventure = function ()
 	local v_list = List.new()
-List.pushlast(v_list,page_main.main_task_guide)
-List.pushlast(v_list,page_main.task_completed_guide)
-List.pushlast(v_list,page_main.accept_task)
-List.pushlast(v_list,page_main.arti_fact_piece_guide)
-List.pushlast(v_list,page_main.arti_fact_preview_guide)
-List.pushlast(v_list,page_main.arti_fact_preview_close_guide)
-List.pushlast(v_list,page_main.arti_fact_close_guide)
-List.pushlast(v_list,page_main.main_task_completed)
-List.pushlast(v_list,page_main.task_completed)
-List.pushlast(v_list,page_main.picture_onemore)
-List.pushlast(v_list,page_main.picture_move)
-List.pushlast(v_list,page_main.menu_guide)
-List.pushlast(v_list,page_main.skill_menu_guide)
-List.pushlast(v_list,page_main.auto_fighting_guide)
-List.pushlast(v_list,page_main.adopt_pet)
-List.pushlast(v_list,page_main.choose_pet)
-List.pushlast(v_list,page_main.pet_menu)
-List.pushlast(v_list,page_main.big_skill)
-List.pushlast(v_list,page_main.skill_upgrade_guide)
-List.pushlast(v_list,page_main.skill_menu_close_guide)
-List.pushlast(v_list,page_main.pet_menu_close_guide)
-List.pushlast(v_list,page_main.pet_go_fighting_guide)
-List.pushlast(v_list,page_main.main_task_chain)
-List.pushlast(v_list,page_main.close_func_menu_guide)
-List.pushlast(v_list,page_main.adopt_horse)
-List.pushlast(v_list,page_main.black_horse_active)
-List.pushlast(v_list,page_main.exam_activity)
-List.pushlast(v_list,page_main.shop_buy_pos7)
-List.pushlast(v_list,page_main.buy_ok)
-List.pushlast(v_list,page_main.shenmifensha)
-List.pushlast(v_list,page_main.submit_task_needed)
-List.pushlast(v_list,page_main.letter_deal_button)
-List.pushlast(v_list,page_main.clean_letter)
-List.pushlast(v_list,page_training.skip_scene)
+	List.pushlast(v_list,page_adventure.adventure_mode)
+	List.pushlast(v_list,page_adventure.challenge_mode)
+	List.pushlast(v_list,page_adventure.next_step)
+	List.pushlast(v_list,page_adventure.break_through)
+	List.pushlast(v_list,page_adventure.auto_fighting)
+	List.pushlast(v_list,page_adventure.anykey_go_on)
+	List.pushlast(v_list,page_adventure.once_more)
+
 
 return v_list
 end
 
 
-Colors.func_list_email = function ()
+Colors.func_list_get_stage = function ()
 	local v_list = List.new()
 
-List.pushlast(v_list,page_email.email_icon)
-List.pushlast(v_list,page_email.sys_email)
-List.pushlast(v_list,page_email.receive_email)
-List.pushlast(v_list,page_popup.close_welfare_window)
+List.pushlast(v_list,page_main_thread.home_page)
+--List.pushlast(v_list,page_email.sys_email)
+--List.pushlast(v_list,page_email.receive_email)
+--List.pushlast(v_list,page_popup.close_welfare_window)
 return v_list
 end
 
