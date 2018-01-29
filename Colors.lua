@@ -6,14 +6,27 @@ page_login_entrance.button_wx.click_xy={506,  527}
 page_login_entrance.button_wx.logmsg="选择微信登陆"
 
 
-page_login_entrance={}
+--page_login_entrance={}
 page_login_entrance.accept_licence={}
 page_login_entrance.accept_licence.colors={{{  541,  493, 0xde9f2b},{  545,  501, 0xffffff},{  561,  500, 0xffffff},{  580,  494, 0xfcfcfc},{  570,  509, 0xde9925},}}
 --page_login_entrance.accept_licence.click_xy={506,  527}
 page_login_entrance.accept_licence.logmsg="用户协议-接受"
 
+--page_login_entrance={}
+page_login_entrance.new_version_update={}
+page_login_entrance.new_version_update.color={
+	{  767,  557, 0x146eae},
+	{  776,  565, 0x1a8ac6},
+	{  770,  572, 0x20a4dd},
+	{  770,  583, 0x1c95d7},	
+}
+page_login_entrance.new_version_update.click_xy={634,  576}
+page_login_entrance.new_version_update.logmsg="版本更新公告"
 
-page_login_entrance={}
+
+
+
+--page_login_entrance={}
 page_login_entrance.back_home={}
 page_login_entrance.back_home.colors={{{   64,   15, 0x0ed1e5},{   84,   24, 0x1ba9ca},{   85,   35, 0x27bbe1},{   54,   44, 0x1face0},{   63,   32, 0x121a2b},}}
 page_login_entrance.back_home.logmsg="登陆游戏过程中点击多了，回到主界面"
@@ -1392,7 +1405,7 @@ Colors.func_list_login= function ()
 	local v_list = List.new()
 	List.pushlast(v_list,page_login_entrance.button_wx)
 	List.pushlast(v_list,page_login_entrance.accept_licence)
---List.pushlast(v_list,page_login_entrance.button_besure_wx)
+	List.pushlast(v_list,page_login_entrance.new_version_update)
 --List.pushlast(v_list,page_popup.tips_ok1)
 List.pushlast(v_list,page_login_entrance.start_game)
 List.pushlast(v_list,page_login_entrance.back_home)

@@ -136,8 +136,11 @@ function task_by_loop2(list1)
 			for k1,v1 in pairs(colors )	do
 				--wwlog(common.table_to_str(v1))
 				--wwlog(common.table_to_str({{  931,   85, 0x30e4f4},{  949,   87, 0x2bcae2},{  947,   99, 0x2db9e5},{  938,   93, 0x32cee9},}))
+				--dialog("140", 0)
 				if multi_col(v1) ==true then
-				--if multi_col({{  931,   85, 0x30e4f4},{  949,   87, 0x2bcae2},{  947,   99, 0x2db9e5},{  938,   93, 0x32cee9},}) then 
+				
+				--if multi_col({	{  620,  574, 0xffffff},	{  613,  579, 0xf8f8f8},	{  630,  575, 0xfdfdfd},	{  658,  576, 0xffffff},}) then 
+			--dialog("141", 0)
 				--if false then
 					--toast("142", 3)
 					ret = "in"					
