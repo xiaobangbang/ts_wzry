@@ -130,22 +130,22 @@ function task_by_foo2(list1)
 end
 
 function dosomething2(v_color,v)
-	
+
 	if v.click_xy ~= nil then
-		
+
 		local click_x,click_y = getClickXY({v.click_xy})	
-		
+
 		ltap(click_x,  click_y)
 	else
 		if v.foo ~= nil then
 			v.foo()		
 		else
-	
+
 			local click_x,click_y = getClickXY(v_color)	
 			ltap(click_x,  click_y)
 		end	
 	end
-	
+
 end
 
 function task_by_loop2(list1)
@@ -159,12 +159,12 @@ function task_by_loop2(list1)
 				colors = v.colors
 			end
 			for k1,v1 in pairs(colors )	do
-				
+
 				if multi_col(v1) ==true then
-				
-				--if multi_col({	{  620,  574, 0xffffff},	{  613,  579, 0xf8f8f8},	{  630,  575, 0xfdfdfd},	{  658,  576, 0xffffff},}) then 
-			--dialog("141", 0)
-				--if false then
+
+					--if multi_col({	{  620,  574, 0xffffff},	{  613,  579, 0xf8f8f8},	{  630,  575, 0xfdfdfd},	{  658,  576, 0xffffff},}) then 
+					--dialog("141", 0)
+					--if false then
 					--toast("142", 3)
 					--ret = "in"					
 					wwlog(v.logmsg)
@@ -174,7 +174,7 @@ function task_by_loop2(list1)
 					end
 					--dialog("131", 0)
 					dosomething2(v1,v)
-					
+
 					if v.once ~= nil then
 						List.popList(list1,k)
 					end
@@ -219,10 +219,10 @@ end
 function func_get_stage(...)
 	local ret = nil
 	--while (true) do			
-		local list1 = co.func_list_get_stage()		
-		ret = task_by_foo2(list1)
-		--if ret ~= nil then 			break			end
-		mSleep(3000)
+	local list1 = co.func_list_get_stage()		
+	ret = task_by_foo2(list1)
+	--if ret ~= nil then 			break			end
+	mSleep(3000)
 	--end
 	return ret
 end
@@ -242,7 +242,7 @@ function func_popup1(...)
 	while (true) do	
 		--toast("sub thread 2 over",1)
 		local list1 = co.func_list_popup()
-		
+
 		local ret = task_by_loop2(list1)
 		if ret ~= nil then
 			wwlog(ret, 2)		
@@ -255,7 +255,20 @@ function func_adventure(...)
 	while (true) do	
 		--toast("sub thread 2 over",1)
 		local list1 = co.func_list_adventure()
-		
+
+		local ret = task_by_loop2(list1)
+		if ret ~= nil then
+			wwlog(ret, 2)		
+		end
+		mSleep(3000)
+	end
+end
+
+function func_go_back(...)
+	while (true) do	
+		--toast("sub thread 2 over",1)
+		local list1 = co.func_list_go_back()
+
 		local ret = task_by_loop2(list1)
 		if ret ~= nil then
 			wwlog(ret, 2)		
@@ -269,112 +282,182 @@ function func_main_thread_call_back()
 	--mrsleep(1000)
 end
 
-local stage=nil
+--local stage=nil
+local logon_thread_on =  false;adventure_thread_on = false;popup_thread_on = false;go_back_thread_on = false
+local adventure_time_flag= false;
+local sub_thread_1 = nil;sub_thread_2 = nil;sub_thread_3 = nil;sub_thread_4 = nil;
+
+local adventure_hours={start_hour=15,start_min=25,stop_hour=16,stop_min=45}
+
+function check_activity (activity_hours) 
+	local ret = false
+	local tt=os.date("*t",os.time())
+
+	local time_start = os.time{year = tt.year, month = tt.month, day = tt.day, hour = activity_hours.start_hour, min = activity_hours.start_min};
+
+	local time_stop = os.time{year = tt.year, month = tt.month, day = tt.day, hour = activity_hours.stop_hour, min = activity_hours.stop_min};
+
+	local time_cur = os.time()
+
+	if time_cur >=time_start and time_cur <= time_stop then
+		ret = true
+	end
+	return ret
+end 
+
+
+
 --主线程
 local thread_id = thrd.create(function()
-		--创建子协程--登陆
-		--stage=func_get_stage()
-		--dialog(stage, 3)
-		--if stage == nil or  stage~="home_page" then 
-		local sub_thread_id_1 = thrd.createSubThread(function()
-				func_logon()
-				--thread.throw("协程抛出异常")
-			end
-			,{
-				callBack = function()
-				
-					wwlog("239 协程结束了", 0)					
-				end,
-				errorBack = function(err)
-					--协程错误结束，一般是引用空调用,err是字符串
-					wwlog("243 协程错误了:")
-					wwlog(err,0)
-				end,
-				catchBack = function(exp)
-					--协程异常结束,异常是脚本调用了throw激发的,exp是table，exp.message是异常原因					
-					wwlog("250 协程异常了\n"..json.encode(exp),0)
-				end
-			}
-		)
-		thrd.setTimeout(45000,sub_thread_id_1)
+		while true do 
+			--创建子协程--登陆
 
-		---[[
-		local sub_thread_id_2 = thrd.createSubThread(function()				
-				func_popup1()
-				--因为sub thread 2比parent thread运行时间长，所以以下代码实际执行不到
+			if logon_thread_on ==false then 
+				sub_thread_1 = thrd.createSubThread(function()
+						logon_thread_on =  true
+						func_logon()
+						--thread.throw("协程抛出异常")
+					end
+					,{
+						callBack = function()
+							wwlog("239 协程结束了", 0)					
+						end,
+						errorBack = function(err)
+							--协程错误结束，一般是引用空调用,err是字符串
+							wwlog("243 协程错误了:")
+							wwlog(err,0)
+						end,
+						catchBack = function(exp)
+							--协程异常结束,异常是脚本调用了throw激发的,exp是table，exp.message是异常原因					
+							wwlog("250 协程异常了\n"..json.encode(exp),0)
+						end
+					}
+				)
+				thrd.setTimeout(45000,sub_thread_1)
+			end 
 
-			end
-			,{
-				callBack = function()
-					--协程结束会调用，不论是错误、异常、正常结束
-					--mrsleep(1000)
-					
-					wwlog("269 协程结束了", 0)					
-				end,
-				errorBack = function(err)
-					--协程错误结束，一般是引用空调用,err是字符串
-					wwlog("274 协程错误了:"..err,0)
-				end,
-				catchBack = function(exp)
-					--协程异常结束,异常是脚本调用了throw激发的,exp是table，exp.message是异常原因
-					--local sz = require('sz')
-					--local cjson = sz.json
-					wwlog("279 协程异常了\n"..json.encode(exp),0)
-				end
-			}
-		)
-		thrd.setTimeout(30000,sub_thread_id_2)
-		
-		--thrd.wait(sub_thread_id_2)
-	--end 
-	--if stage =="home_page"  then 
-		local sub_thread_3 = thrd.createSubThread(function()				
-				func_adventure()
-				--因为sub thread 2比parent thread运行时间长，所以以下代码实际执行不到
+			---[[
+			if popup_thread_on == false then 
+				sub_thread_2 = thrd.createSubThread(function()	
+						popup_thread_on = true
+						func_popup1()						
+					end
+					,{
+						callBack = function()
+							--协程结束会调用，不论是错误、异常、正常结束
+							--mrsleep(1000)
+							wwlog("269 协程结束了", 0)					
+						end,
+						errorBack = function(err)
+							--协程错误结束，一般是引用空调用,err是字符串
+							wwlog("274 协程错误了:"..err,0)
+						end,
+						catchBack = function(exp)
+							--协程异常结束,异常是脚本调用了throw激发的,exp是table，exp.message是异常原因						
+							wwlog("279 协程异常了\n"..json.encode(exp),0)
+						end
+					}
+				)
+			end 
+			--thrd.setTimeout(30000,sub_thread_2)
 
-			end
-			,{
-				callBack = function()
-					--协程结束会调用，不论是错误、异常、正常结束
-					--mrsleep(1000)
-					
-					wwlog("280 协程结束了", 0)					
-				end,
-				errorBack = function(err)
-					--协程错误结束，一般是引用空调用,err是字符串
-					wwlog("284 协程错误了:"..err,0)
-				end,
-				catchBack = function(exp)
-					--协程异常结束,异常是脚本调用了throw激发的,exp是table，exp.message是异常原因
-					--local sz = require('sz')
-					--local cjson = sz.json
-					wwlog("290 协程异常了\n"..json.encode(exp),0)
+			--thrd.wait(sub_thread_id_2)
+			if check_activity(adventure_hours) then
+				adventure_time_flag = true
+				wwlog("adventure_time_flag = true")
+			else
+				adventure_time_flag = false
+				if sub_thread_3 ~= nil then
+					thrd.stop(sub_thread_3)
+					go_back_thread_on = true
+					wwlog("thrd.stop(sub_thread_3)")
 				end
-			}
-		)
-		--end 
-				
-		--获取当前时间，并判断是否有定时任务
-		while true do
-			mSleep(3000)
-			stage=func_get_stage()
-			local tt=os.date("*t",os.time())
-			local cur_time = os.date("%Y-%m-%d %H:%M:%S",os.time())
-			wwlog("main thread:"..cur_time, 1)
-		end
+				wwlog("adventure_time_flag = false")
+			end
+
+			if adventure_thread_on == false and adventure_time_flag ==true then 
+				sub_thread_3 = thrd.createSubThread(function()
+						adventure_thread_on =  true
+						wwlog("before func_adventure()")
+						func_adventure()
+						--因为sub thread 2比parent thread运行时间长，所以以下代码实际执行不到
+					end
+					,{
+						callBack = function()
+							--协程结束会调用，不论是错误、异常、正常结束
+							--mrsleep(1000)
+							wwlog("280 协程结束了", 0)					
+						end,
+						errorBack = function(err)
+							--协程错误结束，一般是引用空调用,err是字符串
+							wwlog("284 协程错误了:"..err,0)
+						end,
+						catchBack = function(exp)
+							--协程异常结束,异常是脚本调用了throw激发的,exp是table，exp.message是异常原因							
+							wwlog("290 协程异常了\n"..json.encode(exp),0)
+						end
+					}
+				)
+			end
+			
+			if go_back_thread_on == true then 
+				sub_thread_4 = thrd.createSubThread(function()
+						go_back_thread_on =  false
+						wwlog("before func_go_back()")
+						func_go_back()
+						--因为sub thread 2比parent thread运行时间长，所以以下代码实际执行不到
+					end
+					,{
+						callBack = function()
+							--协程结束会调用，不论是错误、异常、正常结束
+							--mrsleep(1000)
+							wwlog("401 协程结束了", 0)					
+						end,
+						errorBack = function(err)
+							--协程错误结束，一般是引用空调用,err是字符串
+							wwlog("405 协程错误了:"..err,0)
+						end,
+						catchBack = function(exp)
+							--协程异常结束,异常是脚本调用了throw激发的,exp是table，exp.message是异常原因							
+							wwlog("409 协程异常了\n"..json.encode(exp),0)
+						end
+					}
+				)
+			end
+			
+			local stage=func_get_stage()
+			if stage =="home_page" then 
+				wwlog("back to homepage")
+				if sub_thread_4 ~= nil then
+					thrd.stop(sub_thread_4)
+				end
+			end 
+
+			--获取当前时间，并判断是否有定时任务
+			--[[
+			while true do
+				mSleep(3000)
+				stage=func_get_stage()
+				local tt=os.date("*t",os.time())
+				local cur_time = os.date("%Y-%m-%d %H:%M:%S",os.time())
+				wwlog("main thread:"..cur_time, 1)
+			end
+			--]]
+			mrsleep(1000)
+		end 
 		return 200
 	end
-	
+
 	,{		
 		callBack = function()			
 			func_main_thread_call_back()				
 		end,
-		
+
 		errorBack = function(err)
 			--协程错误结束，一般是引用空调用,err是字符串
 			wwlog("219 协程错误了:"..err,0)
 		end,
-		
+
 		catchBack = function(exp)
 			--协程异常结束,异常是脚本调用了throw激发的,exp是table，exp.message是异常原因		
 			wwlog("225 协程异常了\n"..json.encode(exp),0)
@@ -393,7 +476,7 @@ if ok==true then
 	toast("wait ok,ret is "..tostring(ret))
 else
 	toast("wait not ok.....,ret is "..tostring(ok),2)
-	
+
 end
 --]]
 
