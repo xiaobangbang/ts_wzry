@@ -88,6 +88,88 @@ page_main_thread.home_page.foo2= function()
 page_main_thread.home_page.wait=10 --等待10秒再多点取色判断
 --主页判断
 --
+page_popup={}
+page_popup.new_version_update={}
+page_popup.new_version_update.color={{  931,   85, 0x30e4f4},{  949,   87, 0x2bcae2},{  947,   99, 0x2db9e5},{  938,   93, 0x32cee9},}
+page_popup.new_version_update.logmsg="版本更新公告"
+
+
+page_popup.tips_ok1={}		
+page_popup.tips_ok1.color={
+	{  548,  190, 0x381e07},
+	{  582,  188, 0x391f08},
+	{  543,  417, 0xeabf6c},
+	{  571,  419, 0xfef7d4},
+}
+page_popup.tips_ok1.logmsg="弹出提示信息"
+
+page_popup.notice_ok1={}		
+page_popup.notice_ok1.colors = {
+	{
+		{   74,  119, 0xe2bf77},
+		{   77,  171, 0xc69953},
+		{  544,  521, 0xe9bd6a},
+		{  568,  526, 0xe4ab52},
+	},
+	{
+		{   71,  121, 0xe2b977},
+		{   78,  170, 0xc69b55},
+		{  541,  521, 0xecbf6b},
+		{  564,  525, 0xfcf4d1},
+	}
+}
+page_popup.notice_ok1.logmsg="公告，点击确定"		
+
+
+
+page_popup.close_window1={}		
+page_popup.close_window1.color = {{  931,   86, 0x31e4f3},{  949,   87, 0x2bcae2},{  948,  102, 0x2ab6e7},{  940,   94, 0x33c9e7},}
+page_popup.close_window1.logmsg="活动窗口1，点击关闭"
+
+page_popup.close_window2={}		
+page_popup.close_window2.color = {{  932,   85, 0x2bc8ce},{  947,   87, 0x28b6c2},{  948,  101, 0x259fc3},{  940,   94, 0x2eb1c3},}
+page_popup.close_window2.logmsg="活动窗口2，点击关闭"
+
+page_popup.close_window3={}		
+page_popup.close_window3.color = {{  968,  108, 0x30e4f3},{  984,  108, 0x2acfe7},{  984,  123, 0x2fb9e7},{  976,  116, 0x2ec8e7},}
+page_popup.close_window3.logmsg="活动窗口3，点击关闭"
+
+page_popup.close_window4={}		
+page_popup.close_window4.color = {{ 1056,  128, 0xfeeeff},{ 1067,  129, 0xfeeeff},{ 1067,  140, 0xfeeeff},{ 1061,  134, 0xfeeeff},}
+page_popup.close_window4.logmsg="活动窗口4，点击关闭"
+
+page_popup.get_award_diamond={}		
+page_popup.get_award_diamond.color = {{  546,  272, 0xfafafc},{  571,  280, 0xfcf6fd},{  587,  294, 0x925dcd},{  569,  300, 0xe7dafc},}
+page_popup.get_award_diamond.click_xy={565,  440}
+page_popup.get_award_diamond.logmsg="获得奖励-钻石"
+
+page_popup.get_award_rune={}		
+page_popup.get_award_rune.color = {{  562,  273, 0xa6e5f1},{  578,  274, 0x49cae1},{  586,  288, 0x18b3e5},{  578,  298, 0x3ad9ed},{  570,  288, 0x5bd1ea},}
+page_popup.get_award_rune.click_xy={565,  440}
+page_popup.get_award_rune.logmsg="获得奖励-碎片"
+
+page_popup.over_3hours={}		
+page_popup.over_3hours.color = {
+	{  760,  429, 0xd22a56},
+	{  767,  441, 0xf7e5e9},
+	{  783,  448, 0xfbf2f4},
+	{  819,  443, 0xf8e9ec},
+	{  798,  432, 0xcb2853},
+}
+page_popup.over_3hours.wait=1800
+page_popup.over_3hours.logmsg="超过3个小时，休息30分钟"
+
+
+page_popup.line_off={}		
+page_popup.line_off.color = {
+	{  540,  423, 0xe7a52d},
+	{  545,  429, 0xffffff},
+	{  559,  433, 0xffffff},
+	{  582,  433, 0xffffff},
+	{  568,  434, 0xe7a226},
+}
+page_popup.line_off.logmsg="断线重连，点击确定"
+
 
 
 page_login_entrance.button_besure_wx={}
@@ -295,66 +377,6 @@ page_training.first_attack.foo = function()
 
 end
 
-
-page_popup={}
-page_popup.new_version_update={}
-page_popup.new_version_update.color={{  931,   85, 0x30e4f4},{  949,   87, 0x2bcae2},{  947,   99, 0x2db9e5},{  938,   93, 0x32cee9},}
-page_popup.new_version_update.logmsg="版本更新公告"
-
-
-page_popup.tips_ok1={}		
-page_popup.tips_ok1.color={
-	{  548,  190, 0x381e07},
-	{  582,  188, 0x391f08},
-	{  543,  417, 0xeabf6c},
-	{  571,  419, 0xfef7d4},
-}
-page_popup.tips_ok1.logmsg="弹出提示信息"
-
-page_popup.notice_ok1={}		
-page_popup.notice_ok1.colors = {
-	{
-		{   74,  119, 0xe2bf77},
-		{   77,  171, 0xc69953},
-		{  544,  521, 0xe9bd6a},
-		{  568,  526, 0xe4ab52},
-	},
-	{
-		{   71,  121, 0xe2b977},
-		{   78,  170, 0xc69b55},
-		{  541,  521, 0xecbf6b},
-		{  564,  525, 0xfcf4d1},
-	}
-}
-page_popup.notice_ok1.logmsg="公告，点击确定"		
-
-
-
-page_popup.close_window1={}		
-page_popup.close_window1.color = {{  931,   86, 0x31e4f3},{  949,   87, 0x2bcae2},{  948,  102, 0x2ab6e7},{  940,   94, 0x33c9e7},}
-page_popup.close_window1.logmsg="活动窗口1，点击关闭"
-
-page_popup.close_window2={}		
-page_popup.close_window2.color = {{  932,   85, 0x2bc8ce},{  947,   87, 0x28b6c2},{  948,  101, 0x259fc3},{  940,   94, 0x2eb1c3},}
-page_popup.close_window2.logmsg="活动窗口2，点击关闭"
-
-page_popup.close_window3={}		
-page_popup.close_window3.color = {{  968,  108, 0x30e4f3},{  984,  108, 0x2acfe7},{  984,  123, 0x2fb9e7},{  976,  116, 0x2ec8e7},}
-page_popup.close_window3.logmsg="活动窗口3，点击关闭"
-
-page_popup.close_window4={}		
-page_popup.close_window4.color = {{ 1056,  128, 0xfeeeff},{ 1067,  129, 0xfeeeff},{ 1067,  140, 0xfeeeff},{ 1061,  134, 0xfeeeff},}
-page_popup.close_window4.logmsg="活动窗口4，点击关闭"
-
-page_popup.get_award_diamond={}		
-page_popup.get_award_diamond.color = {{  546,  272, 0xfafafc},{  571,  280, 0xfcf6fd},{  587,  294, 0x925dcd},{  569,  300, 0xe7dafc},}
-page_popup.get_award_diamond.click_xy={565,  440}
-page_popup.get_award_diamond.logmsg="获得奖励-钻石"
-
-page_popup.get_award_rune={}		
-page_popup.get_award_rune.color = {{  562,  273, 0xa6e5f1},{  578,  274, 0x49cae1},{  586,  288, 0x18b3e5},{  578,  298, 0x3ad9ed},{  570,  288, 0x5bd1ea},}
-page_popup.get_award_rune.click_xy={565,  440}
-page_popup.get_award_rune.logmsg="获得奖励-碎片"
 
 
 
@@ -1489,6 +1511,9 @@ List.pushlast(v_list,page_popup.close_window3)
 List.pushlast(v_list,page_popup.close_window4)
 List.pushlast(v_list,page_popup.get_award_diamond)
 List.pushlast(v_list,page_popup.get_award_rune)
+List.pushlast(v_list,page_popup.over_3hours)
+List.pushlast(v_list,page_popup.line_off)
+
 return v_list
 end
 

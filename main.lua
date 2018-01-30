@@ -166,9 +166,12 @@ function task_by_loop2(list1)
 			--dialog("141", 0)
 				--if false then
 					--toast("142", 3)
-					ret = "in"					
+					--ret = "in"					
 					wwlog(v.logmsg)
-					--dialog("141", 0)
+					if v.wait ~=nil then
+						ttoast(v.wait)
+						mmsleep(v.wait *1000)
+					end
 					--dialog("131", 0)
 					dosomething2(v1,v)
 					
@@ -270,7 +273,7 @@ local stage=nil
 --主线程
 local thread_id = thrd.create(function()
 		--创建子协程--登陆
-		stage=func_get_stage()
+		--stage=func_get_stage()
 		--dialog(stage, 3)
 		--if stage == nil or  stage~="home_page" then 
 		local sub_thread_id_1 = thrd.createSubThread(function()
