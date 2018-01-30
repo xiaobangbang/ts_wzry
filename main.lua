@@ -140,7 +140,6 @@ function dosomething2(v_color,v)
 		if v.foo ~= nil then
 			v.foo()		
 		else
-
 			local click_x,click_y = getClickXY(v_color)	
 			ltap(click_x,  click_y)
 		end	
@@ -159,22 +158,15 @@ function task_by_loop2(list1)
 				colors = v.colors
 			end
 			for k1,v1 in pairs(colors )	do
-
 				if multi_col(v1) ==true then
-
 					--if multi_col({	{  620,  574, 0xffffff},	{  613,  579, 0xf8f8f8},	{  630,  575, 0xfdfdfd},	{  658,  576, 0xffffff},}) then 
-					--dialog("141", 0)
-					--if false then
-					--toast("142", 3)
-					--ret = "in"					
+					--dialog("141", 0)						
 					wwlog(v.logmsg)
 					if v.wait ~=nil then
 						ttoast(v.wait)
 						mmsleep(v.wait *1000)
-					end
-					--dialog("131", 0)
+					end					
 					dosomething2(v1,v)
-
 					if v.once ~= nil then
 						List.popList(list1,k)
 					end
@@ -195,8 +187,6 @@ function task_by_loop2(list1)
 	end
 	return ret
 end
-
-
 
 mrsleep(1000)
 if is_running("com.tencent.smoba")==1 then
@@ -277,6 +267,18 @@ function func_go_back(...)
 	end
 end
 
+
+function func_free_rune(...)
+	while (true) do			
+		local list1 = co.func_list_free_rune()
+		local ret = task_by_loop2(list1)
+		if ret ~= nil then
+			wwlog(ret, 2)		
+		end
+		mSleep(3000)
+	end
+end
+
 function func_main_thread_call_back()
 	dialog("func_main_thread_call_back", 1)
 	--mrsleep(1000)
@@ -285,18 +287,15 @@ end
 --local stage=nil
 local logon_thread_on =  false;adventure_thread_on = false;popup_thread_on = false;go_back_thread_on = false
 local adventure_time_flag= false;
-local sub_thread_1 = nil;sub_thread_2 = nil;sub_thread_3 = nil;sub_thread_4 = nil;
+local sub_thread_1 = nil;sub_thread_2 = nil;sub_thread_3 = nil;sub_thread_4 = nil;sub_thread_5 = nil;
 
-local adventure_hours={start_hour=15,start_min=25,stop_hour=16,stop_min=45}
+local adventure_hours={start_hour=15,start_min=25,stop_hour=22,stop_min=48}
 
 function check_activity (activity_hours) 
 	local ret = false
 	local tt=os.date("*t",os.time())
-
 	local time_start = os.time{year = tt.year, month = tt.month, day = tt.day, hour = activity_hours.start_hour, min = activity_hours.start_min};
-
 	local time_stop = os.time{year = tt.year, month = tt.month, day = tt.day, hour = activity_hours.stop_hour, min = activity_hours.stop_min};
-
 	local time_cur = os.time()
 
 	if time_cur >=time_start and time_cur <= time_stop then
@@ -305,16 +304,14 @@ function check_activity (activity_hours)
 	return ret
 end 
 
-
-
 --主线程
 local thread_id = thrd.create(function()
 		while true do 
 			--创建子协程--登陆
-
 			if logon_thread_on ==false then 
 				sub_thread_1 = thrd.createSubThread(function()
 						logon_thread_on =  true
+						wwlog("before func_logon")
 						func_logon()
 						--thread.throw("协程抛出异常")
 					end
@@ -369,6 +366,7 @@ local thread_id = thrd.create(function()
 				adventure_time_flag = false
 				if sub_thread_3 ~= nil then
 					thrd.stop(sub_thread_3)
+					sub_thread_3=nil
 					go_back_thread_on = true
 					wwlog("thrd.stop(sub_thread_3)")
 				end
@@ -430,7 +428,35 @@ local thread_id = thrd.create(function()
 				wwlog("back to homepage")
 				if sub_thread_4 ~= nil then
 					thrd.stop(sub_thread_4)
+					sub_thread_4 = nil
+					wwlog("thrd.stop(sub_thread_4)")
 				end
+				if sub_thread_5 == nil then 
+				sub_thread_5 = thrd.createSubThread(function()
+						
+						wwlog("before func_free_rune()")
+						func_free_rune()
+						--因为sub thread 2比parent thread运行时间长，所以以下代码实际执行不到
+					end
+					,{
+						callBack = function()
+							--协程结束会调用，不论是错误、异常、正常结束
+							--mrsleep(1000)
+							wwlog("445 协程结束了", 0)					
+						end,
+						errorBack = function(err)
+							--协程错误结束，一般是引用空调用,err是字符串
+							wwlog("449 协程错误了:"..err,0)
+						end,
+						catchBack = function(exp)
+							--协程异常结束,异常是脚本调用了throw激发的,exp是table，exp.message是异常原因							
+							wwlog("453 协程异常了\n"..json.encode(exp),0)
+						end
+					}
+				)
+				thrd.setTimeout(30000,sub_thread_5)
+				end
+				
 			end 
 
 			--获取当前时间，并判断是否有定时任务

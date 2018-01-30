@@ -5,14 +5,10 @@ page_login_entrance.button_wx.colors={{{  500,  504, 0x30be1a},{  486,  519, 0xf
 page_login_entrance.button_wx.click_xy={506,  527}
 page_login_entrance.button_wx.logmsg="选择微信登陆"
 
-
---page_login_entrance={}
 page_login_entrance.accept_licence={}
 page_login_entrance.accept_licence.colors={{{  541,  493, 0xde9f2b},{  545,  501, 0xffffff},{  561,  500, 0xffffff},{  580,  494, 0xfcfcfc},{  570,  509, 0xde9925},}}
---page_login_entrance.accept_licence.click_xy={506,  527}
 page_login_entrance.accept_licence.logmsg="用户协议-接受"
 
---page_login_entrance={}
 page_login_entrance.new_version_update={}
 page_login_entrance.new_version_update.color={
 	{  767,  557, 0x146eae},
@@ -24,10 +20,11 @@ page_login_entrance.new_version_update.click_xy={634,  576}
 page_login_entrance.new_version_update.overtime=60
 page_login_entrance.new_version_update.logmsg="版本更新公告"
 
+page_login_entrance.start_game={}
+page_login_entrance.start_game.colors={ {{  507,  518, 0x1763b2},{  517,  517, 0xffffff},{  529,  523, 0xffffff},{  536,  520, 0x1765b9},{  563,  528, 0xffffff},}}
+page_login_entrance.start_game.logmsg="进入游戏"
+page_login_entrance.start_game.overtime=20
 
-
-
---page_login_entrance={}
 page_login_entrance.back_home={}
 page_login_entrance.back_home.colors={{{   64,   15, 0x0ed1e5},{   84,   24, 0x1ba9ca},{   85,   35, 0x27bbe1},{   54,   44, 0x1face0},{   63,   32, 0x121a2b},}}
 page_login_entrance.back_home.logmsg="登陆游戏过程中点击多了，回到主界面"
@@ -36,24 +33,20 @@ page_login_entrance.get_location={}
 page_login_entrance.get_location.colors={{{  694,  394, 0x007aff},{  697,  408, 0x007aff},{  708,  400, 0x007aff},{  709,  414, 0x007aff},}}
 page_login_entrance.get_location.logmsg="王者荣耀使用当前位置"
 
-
 page_login_entrance.sevendays_logon={}
 page_login_entrance.sevendays_logon.colors={{{  661,   84, 0xffffff},{  642,   95, 0xffffff},{  611,   98, 0xffffff},{  974,   88, 0x38cdea},{ 1022,  569, 0xe5a61b},}}
 page_login_entrance.sevendays_logon.logmsg="七天累计登陆-点击领取"
---[[
-page_login_entrance.sevendays_logon.foo= function ()  
-	ltap(1022,  569) --点击领取
-	mmsleep(5000)
-	ltap(974,   88) --点击关闭X	
-end
---]]
+
+
+
+
+
+
 page_adventure={}
 page_adventure.adventure_mode={}
 page_adventure.adventure_mode.colors={{{  902,  482, 0xeeeae5},{  938,  486, 0xe4ded2},{  958,  480, 0xededed},{  978,  482, 0xdad4cd},}}
 page_adventure.adventure_mode.logmsg="冒险模式"
 
-
---page_adventure={}
 page_adventure.challenge_mode={}
 page_adventure.challenge_mode.colors={{{  539,  488, 0xffffff},{  177,   27, 0xffffff},{  225,   32, 0xfefefe},{  558,  498, 0xf6fbff},{  571,  501, 0xffffff},}}
 page_adventure.challenge_mode.logmsg="挑战模式"
@@ -85,6 +78,10 @@ page_adventure.once_more={}
 page_adventure.once_more.colors={{{  889,  574, 0xdf9829},{  900,  575, 0xffffff},{  900,  585, 0xffffff},{  932,  582, 0xffffff},{  948,  581, 0xffffff},}}
 page_adventure.once_more.logmsg="再次挑战"
 
+page_adventure.goback_button={}
+page_adventure.goback_button.colors={{{  728,  584, 0x359ed6},{  731,  582, 0xffffff},{  738,  576, 0xffffff},{  767,  580, 0xffffff},}}
+page_adventure.goback_button.logmsg="返回按钮"
+
 page_adventure.go_back={}
 page_adventure.go_back.colors={{
 	{   56,   15, 0x0ecfe4},
@@ -92,8 +89,57 @@ page_adventure.go_back.colors={{
 	{   81,   39, 0x28c6eb},
 	{   40,   44, 0x249eda},
 }}
-page_adventure.go_back.logmsg="返回"
+page_adventure.go_back.logmsg="左上角返回"
 
+
+
+
+
+
+page_rune={}
+page_rune.free_rune={}
+page_rune.free_rune.colors={{{  274,  581, 0xf92535},{  279,  585, 0xfb161e},{  201,  602, 0xcef4ff},{  193,  607, 0xc0effb},}}
+page_rune.free_rune.logmsg="点击底部带红色小点铭文图标"
+
+page_rune.fetch_rune={}
+page_rune.fetch_rune.colors={{{  100,  321, 0xf42b34},{  101,  325, 0xf71016},{   16,  348, 0x7e88a2},{   70,  347, 0x7e88a2},}}
+page_rune.fetch_rune.logmsg="铭文获取"
+--铭文获取
+
+page_rune.buy_free={}
+page_rune.buy_free.colors={{{  765,  602, 0xf32e38},{  766,  607, 0xf71016},{  698,  607, 0xffffff},{  707,  608, 0xffffff},}}
+page_rune.get_rune_award.click_xy={    728,  547}
+page_rune.buy_free.logmsg="免费"
+--免费
+
+page_rune.get_rune_award={}
+page_rune.get_rune_award.colors={{{  549,  353, 0xcccddf},{  557,  355, 0x8f92a3},{  571,  349, 0x787b8c},{  572,  356, 0xc0c1d3},}}
+page_rune.get_rune_award.logmsg="获得铭文-点击确定"
+page_rune.get_rune_award.click_xy={  563,  440}
+
+page_rune.get_rune_award={}
+page_rune.get_rune_award.colors={{{  698,  607, 0xffffff},{  695,  619, 0xffffff},{  704,  613, 0xffffff},{  714,  601, 0xffffff},{  722,  612, 0xffffff},}}
+page_rune.get_rune_award.logmsg="铭文领取后返回"
+page_rune.get_rune_award.click_xy={   60,   31}
+
+
+page_email={}
+page_email.new_emails={}
+page_email.new_emails.colors={{{  957,   10, 0xf7262d},{  957,   14, 0xf70d13},{  940,   26, 0x1e8cc5},{  940,   35, 0x1577a8},}}
+page_email.new_emails.logmsg="新邮件-红点"
+
+page_email.sys_emails={}
+page_email.sys_emails.colors={{{   97,  189, 0xf80909},{  101,  189, 0xf70a0a},{   23,  206, 0x7e88a2},{   59,  203, 0x7e88a2},}}
+page_email.sys_emails.logmsg="系统邮件-红点"
+
+page_email.fast_fetch={}
+page_email.fast_fetch.colors={{{  971,  578, 0xde9a2d},{  976,  589, 0xffffff},{  986,  588, 0xffffff},{ 1015,  589, 0xffffff},}}
+page_email.fast_fetch.logmsg="快速领取"
+
+page_email.email_award={}
+page_email.email_award.colors={{{  523,  254, 0x0b111c},{  523,  325, 0x030914},{  534,  242, 0x0a101b},{  616,  300, 0x050b16},}}
+page_email.email_award.logmsg="领取成功-确定"
+page_email.email_award.click_xy={  563,  440}
 
 page_main_thread={}
 page_main_thread.home_page={}
@@ -109,34 +155,6 @@ page_popup={}
 page_popup.new_version_update={}
 page_popup.new_version_update.color={{  931,   85, 0x30e4f4},{  949,   87, 0x2bcae2},{  947,   99, 0x2db9e5},{  938,   93, 0x32cee9},}
 page_popup.new_version_update.logmsg="版本更新公告"
-
-
-page_popup.tips_ok1={}		
-page_popup.tips_ok1.color={
-	{  548,  190, 0x381e07},
-	{  582,  188, 0x391f08},
-	{  543,  417, 0xeabf6c},
-	{  571,  419, 0xfef7d4},
-}
-page_popup.tips_ok1.logmsg="弹出提示信息"
-
-page_popup.notice_ok1={}		
-page_popup.notice_ok1.colors = {
-	{
-		{   74,  119, 0xe2bf77},
-		{   77,  171, 0xc69953},
-		{  544,  521, 0xe9bd6a},
-		{  568,  526, 0xe4ab52},
-	},
-	{
-		{   71,  121, 0xe2b977},
-		{   78,  170, 0xc69b55},
-		{  541,  521, 0xecbf6b},
-		{  564,  525, 0xfcf4d1},
-	}
-}
-page_popup.notice_ok1.logmsg="公告，点击确定"		
-
 
 
 page_popup.close_window1={}		
@@ -188,7 +206,10 @@ page_popup.line_off.color = {
 page_popup.line_off.logmsg="断线重连，点击确定"
 
 
-
+page_popup.force_off_line={}		
+page_popup.force_off_line.color = {{  649,  423, 0xe7a52d},{  663,  432, 0xffffff},{  654,  431, 0xffffff},{  692,  436, 0xffffff},}
+page_popup.force_off_line.logmsg="强制休息，请稍后再上线,点击确定，前台退出游戏"
+page_popup.force_off_line.wait=1800
 
 page_login_entrance.button_besure_wx={}
 page_login_entrance.button_besure_wx.color={
@@ -307,6 +328,8 @@ List.pushlast(v_list,page_popup.get_award_diamond)
 List.pushlast(v_list,page_popup.get_award_rune)
 List.pushlast(v_list,page_popup.over_3hours)
 List.pushlast(v_list,page_popup.line_off)
+List.pushlast(v_list,page_popup.force_off_line)
+
 
 return v_list
 end
@@ -332,7 +355,8 @@ Colors.func_list_go_back = function ()
 
 List.pushlast(v_list,page_adventure.go_back )
 List.pushlast(v_list,page_adventure.anykey_go_on)
---List.pushlast(v_list,page_email.sys_email)
+List.pushlast(v_list,page_adventure.auto_fighting)
+List.pushlast(v_list,page_adventure.goback_button)
 --List.pushlast(v_list,page_email.receive_email)
 --List.pushlast(v_list,page_popup.close_welfare_window)
 return v_list
@@ -342,9 +366,17 @@ Colors.func_list_get_stage = function ()
 	local v_list = List.new()
 
 List.pushlast(v_list,page_main_thread.home_page)
---List.pushlast(v_list,page_email.sys_email)
---List.pushlast(v_list,page_email.receive_email)
---List.pushlast(v_list,page_popup.close_welfare_window)
+
+return v_list
+end
+
+Colors.func_list_free_rune = function ()
+	local v_list = List.new()
+
+List.pushlast(v_list,page_rune.free_rune)
+List.pushlast(v_list,page_rune.fetch_rune)
+List.pushlast(v_list,page_rune.buy_free)
+List.pushlast(v_list,page_rune.get_rune_award)
 return v_list
 end
 
