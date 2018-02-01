@@ -170,12 +170,12 @@ function task_by_loop2(list1)
 					if v.once ~= nil then
 						List.popList(list1,k)
 					end
-					if v.end_color then
-						ret = "end_color"						
+					if v.end_list then
+						ret = "end_list"						
 					end	
-					if v.overtime then
-						wwlog("overtime"..tostring(v.overtime))
-						mmsleep(v.overtime * 1000)					
+					if v.over_time then
+						wwlog("over_time"..tostring(v.over_time))
+						mmsleep(v.over_time * 1000)					
 					end	
 					break
 				end				
@@ -262,7 +262,77 @@ function func_battle_pvc(...)
 		if ret ~= nil then
 			wwlog(ret)		
 		end
+		if ret == "end_list" then
+			break
+		end
 		mSleep(3000)
+	end
+end
+
+function func_battle_pvc_auto_fight(...)
+	while (true) do			
+		mSleep(500)
+		--判断是否死亡
+		if multiColor({{  522,    7, 0xf8ecec},{  537,   12, 0xfcf6f6},{  588,   11, 0xf7f3f2},{  607,   11, 0xfefcfc},}) --死亡回放
+		or 
+		multiColor({{ 1018,  528, 0x4e5c62},{ 1024,  534, 0x4a5a61},{ 1046,  560, 0x2f4755},}) then --普攻武器变灰
+			toast("已经死亡")
+		else
+			--如果进入到pvc主界面
+			if multiColor({{ 1018,  533, 0xc8edf9},{ 1030,  537, 0xb0dbf4},{ 1046,  558, 0x76b5d9},}) then 
+				--如果有敌人--顶部中间见红
+				if multiColor({{  558,    7, 0xb8312b},{  560,    8, 0xc13631},{  558,   12, 0x8e2b2a},{  559,   14, 0x79292a},}) then
+					tap(1046,  558)--普攻
+				else --没有敌人，前进
+					moveTowards(  137,  505,70,2000)	
+					tap(1046,  558)--普攻
+
+				end
+				mSleep(1000)
+			end
+			--第二次判断是否死亡
+			if multiColor({{  522,    7, 0xf8ecec},{  537,   12, 0xfcf6f6},{  588,   11, 0xf7f3f2},{  607,   11, 0xfefcfc},}) --死亡回放
+			or 
+			multiColor({{ 1018,  528, 0x4e5c62},{ 1024,  534, 0x4a5a61},{ 1046,  560, 0x2f4755},}) then --普攻武器变灰
+				toast("已经死亡")
+			else
+				--红色血条-带蓝条-敌方英雄
+				if multiColor({{  559,    8, 0xbe342d},{  559,   13, 0x791e1d},{  559,   22, 0x2378d1},}) 
+				or 
+				multiColor({{  558,    8, 0xc2352d},{  559,   12, 0x8e2824},{  558,   22, 0x2377d0},{  558,   24, 0x125fb9},}) 
+				then
+					toast("红色血条-带蓝条-地方英雄",1)
+					--{{ 1032,  549, 0x6eaec0},{  847,  559, 0x11110e},{  910,  448, 0x482d13},{ 1037,  379, 0x270d08},}
+					tap(1032,  549)
+					mSleep(1000)
+					tap(847,  559)
+					mSleep(1000)
+					tap(910,  448)
+					mSleep(1000)
+					tap(1037,  379)
+					--地方防御塔和小兵	
+				elseif multiColor({{  558,    7, 0xb8312b},{  560,    8, 0xc13631},{  558,   12, 0x8e2b2a},{  559,   14, 0x79292a},}) then
+					toast("地方防御塔和小兵-用普攻",1)
+					tap(787,  497)
+					mSleep(200)
+				else			
+					--没有敌人，升级技能和装备
+					toast("没有敌人，升级技能和装备",1)
+					tap(974,  309) --优先学习第三个技能
+					mSleep(200)
+					tap(787,  497) --学习第一个技能
+					mSleep(200)
+					tap(855,  378)--学习第二个技能
+					mSleep(200)
+										
+					tap(120,  259) --穿戴上面的装备，下面的装备暂不穿戴
+					mSleep(200)
+					--tap(117,  326)
+					mSleep(200)
+					tap(787,  497) --普攻
+				end
+			end
+		end
 	end
 end
 
@@ -297,13 +367,17 @@ function func_main_thread_call_back()
 end
 
 --local stage=nil
-local logon_thread_on =  false;adventure_thread_on = false;popup_thread_on = false;go_back_thread_on = false;pvc_thread_on = false
+local logon_thread_on =  false;adventure_thread_on = false;popup_thread_on = false;
+local go_back_thread_on = false;
+local pvc_thread_on = false;
+local pvc_auto_fight_thread_on = false;
 local adventure_time_flag= false;pvc_time_flag= false;
-local sub_thread_logon = nil;sub_thread_popup = nil;sub_thread_adventure = nil;sub_thread_goback = nil;sub_thread_rune = nil;sub_thread_pvc = nil;
+local sub_thread_logon = nil;sub_thread_popup = nil;sub_thread_adventure = nil;
+local sub_thread_goback = nil;sub_thread_rune = nil;sub_thread_pvc = nil;sub_thread_pvc_auto_fight = nil;
 
-local adventure_hours={start_hour=8,start_min=25,stop_hour=8,stop_min=43}
+--local adventure_hours={start_hour=8,start_min=25,stop_hour=8,stop_min=43}
 
-local pvc_hours={start_hour=10,start_min=00,stop_hour=11,stop_min=55}
+--local pvc_hours={start_hour=00,start_min=00,stop_hour=0,stop_min=20}
 
 function check_activity (activity_hours) 
 	local ret = false
@@ -373,7 +447,7 @@ local thread_id = thrd.create(function()
 			--thrd.setTimeout(30000,sub_thread_popup)
 
 			--thrd.wait(sub_thread_id_2)
-			if check_activity(adventure_hours) then
+			if check_activity(env.adventure_hours) then
 				adventure_time_flag = true
 				wwlog("adventure_time_flag = true")
 			else
@@ -387,12 +461,11 @@ local thread_id = thrd.create(function()
 				wwlog("adventure_time_flag = false")
 			end
 
-			if adventure_thread_on == false and adventure_time_flag ==true then 
+			if adventure_thread_on == false and adventure_time_flag ==true and sub_thread_adventure == nil then 
 				sub_thread_adventure = thrd.createSubThread(function()
 						adventure_thread_on =  true
 						wwlog("before func_adventure()")
-						func_adventure()
-						--因为sub thread 2比parent thread运行时间长，所以以下代码实际执行不到
+						func_adventure()						
 					end
 					,{
 						callBack = function()
@@ -411,8 +484,8 @@ local thread_id = thrd.create(function()
 					}
 				)
 			end
-			
-			if check_activity(pvc_hours) then
+
+			if check_activity(env.pvc_hours) then
 				pvc_time_flag = true
 				wwlog("pvc_time_flag = true")
 			else
@@ -425,18 +498,19 @@ local thread_id = thrd.create(function()
 				end
 				wwlog("pvc_time_flag = false")
 			end
-			
-			if pvc_thread_on == false and pvc_time_flag ==true then 
+
+			if pvc_thread_on == true and pvc_time_flag ==true and sub_thread_pvc == nil then 
 				sub_thread_pvc = thrd.createSubThread(function()
-						pvc_thread_on =  true
+						pvc_thread_on =  false						
 						wwlog("before func_battle_pvc()")
-						func_battle_pvc()
-						--因为sub thread 2比parent thread运行时间长，所以以下代码实际执行不到
+						func_battle_pvc()						
 					end
 					,{
 						callBack = function()
 							--协程结束会调用，不论是错误、异常、正常结束
 							--mrsleep(1000)
+							pvc_auto_fight_thread_on =  true
+							wwlog("pvc_auto_fight_thread_on =  true")
 							wwlog("428 协程结束了", 0)					
 						end,
 						errorBack = function(err)
@@ -450,14 +524,38 @@ local thread_id = thrd.create(function()
 					}
 				)
 			end
-			
-						
+
+			--if true then
+				if pvc_auto_fight_thread_on == true  then 
+				sub_thread_pvc_auto_fight = thrd.createSubThread(function()
+						pvc_auto_fight_thread_on =  false
+						wwlog("before func_battle_pvc_auto_fight()")
+						func_battle_pvc_auto_fight()						
+					end
+					,{
+						callBack = function()
+							--协程结束会调用，不论是错误、异常、正常结束
+							--mrsleep(1000)
+							wwlog("518 协程结束了", 0)					
+						end,
+						errorBack = function(err)
+							--协程错误结束，一般是引用空调用,err是字符串
+							wwlog("522 协程错误了:"..err,0)
+						end,
+						catchBack = function(exp)
+							--协程异常结束,异常是脚本调用了throw激发的,exp是table，exp.message是异常原因							
+							wwlog("526 协程异常了\n"..json.encode(exp),0)
+						end
+					}
+				)
+			end
+
+
 			if go_back_thread_on == true then 
 				sub_thread_goback = thrd.createSubThread(function()
 						go_back_thread_on =  false
 						wwlog("before func_go_back()")
-						func_go_back()
-						--因为sub thread 2比parent thread运行时间长，所以以下代码实际执行不到
+						func_go_back()						
 					end
 					,{
 						callBack = function()
@@ -476,41 +574,47 @@ local thread_id = thrd.create(function()
 					}
 				)
 			end
-			
+
 			local stage=func_get_stage()
 			if stage =="home_page" then 
 				wwlog("back to homepage")
+				pvc_thread_on = true --进入主页之后，才开启pvc模式
 				if sub_thread_goback ~= nil then
 					thrd.stop(sub_thread_goback)
 					sub_thread_goback = nil
 					wwlog("thrd.stop(sub_thread_goback)")
 				end
 				if sub_thread_rune == nil then 
-				sub_thread_rune = thrd.createSubThread(function()
-						
-						wwlog("before func_free_rune()")
-						func_free_rune()
-						--因为sub thread 2比parent thread运行时间长，所以以下代码实际执行不到
-					end
-					,{
-						callBack = function()
-							--协程结束会调用，不论是错误、异常、正常结束
-							--mrsleep(1000)
-							wwlog("445 协程结束了", 0)					
-						end,
-						errorBack = function(err)
-							--协程错误结束，一般是引用空调用,err是字符串
-							wwlog("449 协程错误了:"..err,0)
-						end,
-						catchBack = function(exp)
-							--协程异常结束,异常是脚本调用了throw激发的,exp是table，exp.message是异常原因							
-							wwlog("453 协程异常了\n"..json.encode(exp),0)
+					sub_thread_rune = thrd.createSubThread(function()
+
+							wwlog("before func_free_rune()")
+							func_free_rune()							
 						end
-					}
-				)
-				thrd.setTimeout(30000,sub_thread_rune)
+						,{
+							callBack = function()
+								--协程结束会调用，不论是错误、异常、正常结束
+								--mrsleep(1000)
+								wwlog("445 协程结束了", 0)					
+							end,
+							errorBack = function(err)
+								--协程错误结束，一般是引用空调用,err是字符串
+								wwlog("449 协程错误了:"..err,0)
+							end,
+							catchBack = function(exp)
+								--协程异常结束,异常是脚本调用了throw激发的,exp是table，exp.message是异常原因							
+								wwlog("453 协程异常了\n"..json.encode(exp),0)
+							end
+						}
+					)
+					thrd.setTimeout(30000,sub_thread_rune)
 				end
-				
+
+				if sub_thread_pvc_auto_fight ~= nil then
+					sub_thread_pvc_auto_fight = nil
+					thrd.stop(sub_thread_pvc_auto_fight)
+					wwlog("thrd.stop(sub_thread_pvc_auto_fight)")
+				end
+
 			end 
 
 			--获取当前时间，并判断是否有定时任务

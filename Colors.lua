@@ -17,13 +17,13 @@ page_login_entrance.new_version_update.color={
 	{  770,  583, 0x1c95d7},	
 }
 page_login_entrance.new_version_update.click_xy={634,  576}
-page_login_entrance.new_version_update.overtime=60
+page_login_entrance.new_version_update.over_time=60
 page_login_entrance.new_version_update.logmsg="版本更新公告"
 
 page_login_entrance.start_game={}
 page_login_entrance.start_game.colors={ {{  507,  518, 0x1763b2},{  517,  517, 0xffffff},{  529,  523, 0xffffff},{  536,  520, 0x1765b9},{  563,  528, 0xffffff},}}
 page_login_entrance.start_game.logmsg="进入游戏"
-page_login_entrance.start_game.overtime=20
+page_login_entrance.start_game.over_time=20
 
 page_login_entrance.back_home={}
 page_login_entrance.back_home.colors={{{   64,   15, 0x0ed1e5},{   84,   24, 0x1ba9ca},{   85,   35, 0x27bbe1},{   54,   44, 0x1face0},{   63,   32, 0x121a2b},}}
@@ -153,6 +153,8 @@ page_battle.choose_hero.logmsg="选择英雄-准备战斗"
 page_battle.iamready={}
 page_battle.iamready.colors={{{   64,   57, 0x10b0e3},{ 1008,  591, 0xe5a22b},{ 1017,  595, 0xffffff},{ 1047,  603, 0xffffff},}}
 page_battle.iamready.logmsg="英雄选择完毕-确定"
+page_battle.iamready.end_list = true
+page_battle.iamready.over_time = 30
 
 page_battle.press_anykey={}
 page_battle.press_anykey.colors={{{  497,  564, 0xffffff},{  526,  569, 0xffffff},{  552,  569, 0xffffff},{  616,  567, 0xffffff},}}
@@ -199,14 +201,17 @@ page_rune.buy_free.logmsg="免费"
 --免费
 
 page_rune.get_rune_award={}
-page_rune.get_rune_award.colors={{{  549,  353, 0xcccddf},{  557,  355, 0x8f92a3},{  571,  349, 0x787b8c},{  572,  356, 0xc0c1d3},}}
+page_rune.get_rune_award.colors={{{  549,  353, 0xcccddf},{  557,  355, 0x8f92a3},{  571,  349, 0x787b8c},{  572,  356, 0xc0c1d3},}
+	,
+	{{  545,  555, 0xffffff},{  553,  558, 0xffffff},{  564,  558, 0xffffff},{  582,  559, 0xffffff},{  582,  567, 0xffffff},}
+	}
 page_rune.get_rune_award.logmsg="获得铭文-点击确定"
 page_rune.get_rune_award.click_xy={  563,  440}
 
-page_rune.get_rune_award={}
-page_rune.get_rune_award.colors={{{  698,  607, 0xffffff},{  695,  619, 0xffffff},{  704,  613, 0xffffff},{  714,  601, 0xffffff},{  722,  612, 0xffffff},}}
-page_rune.get_rune_award.logmsg="铭文领取后返回"
-page_rune.get_rune_award.click_xy={   60,   31}
+page_rune.rune_award_back={}
+page_rune.rune_award_back.colors={{{  698,  607, 0xffffff},{  695,  619, 0xffffff},{  704,  613, 0xffffff},{  714,  601, 0xffffff},{  722,  612, 0xffffff},}}
+page_rune.rune_award_back.logmsg="铭文领取后返回"
+page_rune.rune_award_back.click_xy={   60,   31}
 
 
 page_email={}
@@ -278,6 +283,25 @@ page_popup.get_award_hero_debris={}
 page_popup.get_award_hero_debris.color = {{  546,  269, 0x273781},{  570,  268, 0xfcf8f8},{  577,  301, 0x746447},{  561,  321, 0x16234d},}
 page_popup.get_award_hero_debris.click_xy={565,  440}
 page_popup.get_award_hero_debris.logmsg="获得奖励-英雄碎片"
+
+
+page_popup.award_yellow_ok={}
+page_popup.award_yellow_ok.colors={{{  545,  555, 0xffffff},{  553,  558, 0xffffff},{  564,  558, 0xffffff},{  582,  559, 0xffffff},{  582,  567, 0xffffff},}}
+page_popup.award_yellow_ok.logmsg="点击黄色按钮确定"
+--page_popup.get_rune_award.click_xy={  563,  440}
+
+page_popup.award_yellow_1ok={}
+page_popup.award_yellow_1ok.colors={{{  547,  534, 0xffffff},{  563,  531, 0xffffff},{  561,  542, 0xffffff},{  585,  534, 0xffffff},{  584,  526, 0xffffff},}}
+page_popup.award_yellow_1ok.logmsg="点击黄色确定按钮-中间底部"
+
+
+page_popup.award_blue_ok={}
+page_popup.award_blue_ok.colors={{{  544,  437, 0xffffff},{  553,  440, 0xffffff},{  564,  445, 0xffffff},{  574,  445, 0xffffff},{  582,  437, 0xffffff},}}
+page_popup.award_blue_ok.logmsg="点击蓝色按钮确定"
+
+page_popup.award_blue_go_on={}
+page_popup.award_blue_go_on.colors={{{  471,  592, 0xffffff},{  468,  598, 0xffffff},{  485,  592, 0xffffff},{  499,  592, 0xffffff},{  512,  600, 0xffffff},}}
+page_popup.award_blue_go_on.logmsg="点击蓝色继续确定--底部中间靠左"
 
 
 page_popup.over_3hours={}		
@@ -456,8 +480,12 @@ List.pushlast(v_list,page_popup.get_award_rune)
 List.pushlast(v_list,page_popup.get_award_hero_debris)
 List.pushlast(v_list,page_popup.over_3hours)
 List.pushlast(v_list,page_popup.line_off)
-List.pushlast(v_list,page_popup.force_off_line)
+--List.pushlast(v_list,page_popup.force_off_line)
 List.pushlast(v_list,page_popup.reject)
+List.pushlast(v_list,page_popup.award_yellow_ok)
+List.pushlast(v_list,page_popup.award_yellow_1ok)
+List.pushlast(v_list,page_popup.award_blue_ok)
+List.pushlast(v_list,page_popup.award_blue_go_on)
 
 return v_list
 end
@@ -505,6 +533,8 @@ List.pushlast(v_list,page_rune.free_rune)
 List.pushlast(v_list,page_rune.fetch_rune)
 List.pushlast(v_list,page_rune.buy_free)
 List.pushlast(v_list,page_rune.get_rune_award)
+List.pushlast(v_list,page_rune.rune_award_back)
+
 return v_list
 end
 

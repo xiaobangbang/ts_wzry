@@ -2,8 +2,8 @@ local TAB_ENV={
 	DEBUG_MODE =true,
 	LOG_MODE =true,
 	WX_USER="oR2LbwALAA43VxqMtW0dI1H71AqM",
-	MAIN_TASK_SWITCH= true,	
-	FIRST_TIME_OF_DAY = false,
+	adventure_hours={start_hour=8,start_min=25,stop_hour=8,stop_min=43},
+	pvc_hours={start_hour=00,start_min=00,stop_hour=1,stop_min=15},
 	LUA_VERSION="TOUCH", --XXT
 	log_file = "tianlong.log",
 	iphone_path="/var/mobile/Media/TouchSprite/lua/",
