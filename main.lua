@@ -222,7 +222,7 @@ function func_logon(...)
 		local list1 = co.func_list_login()		
 		local ret = task_by_loop2(list1)
 		if ret ~= nil then
-			wwlog(ret, 2)		
+			wwlog(ret)		
 		end
 		mSleep(3000)
 	end
@@ -235,7 +235,7 @@ function func_popup1(...)
 
 		local ret = task_by_loop2(list1)
 		if ret ~= nil then
-			wwlog(ret, 2)		
+			wwlog(ret)		
 		end
 		mSleep(3000)
 	end
@@ -248,7 +248,19 @@ function func_adventure(...)
 
 		local ret = task_by_loop2(list1)
 		if ret ~= nil then
-			wwlog(ret, 2)		
+			wwlog(ret)		
+		end
+		mSleep(3000)
+	end
+end
+
+
+function func_battle_pvc(...)
+	while (true) do			
+		local list1 = co.func_list_pvc()
+		local ret = task_by_loop2(list1)
+		if ret ~= nil then
+			wwlog(ret)		
 		end
 		mSleep(3000)
 	end
@@ -261,7 +273,7 @@ function func_go_back(...)
 
 		local ret = task_by_loop2(list1)
 		if ret ~= nil then
-			wwlog(ret, 2)		
+			wwlog(ret)		
 		end
 		mSleep(3000)
 	end
@@ -273,7 +285,7 @@ function func_free_rune(...)
 		local list1 = co.func_list_free_rune()
 		local ret = task_by_loop2(list1)
 		if ret ~= nil then
-			wwlog(ret, 2)		
+			wwlog(ret)		
 		end
 		mSleep(3000)
 	end
@@ -285,11 +297,13 @@ function func_main_thread_call_back()
 end
 
 --local stage=nil
-local logon_thread_on =  false;adventure_thread_on = false;popup_thread_on = false;go_back_thread_on = false
-local adventure_time_flag= false;
-local sub_thread_1 = nil;sub_thread_2 = nil;sub_thread_3 = nil;sub_thread_4 = nil;sub_thread_5 = nil;
+local logon_thread_on =  false;adventure_thread_on = false;popup_thread_on = false;go_back_thread_on = false;pvc_thread_on = false
+local adventure_time_flag= false;pvc_time_flag= false;
+local sub_thread_logon = nil;sub_thread_popup = nil;sub_thread_adventure = nil;sub_thread_goback = nil;sub_thread_rune = nil;sub_thread_pvc = nil;
 
-local adventure_hours={start_hour=15,start_min=25,stop_hour=22,stop_min=48}
+local adventure_hours={start_hour=8,start_min=25,stop_hour=8,stop_min=43}
+
+local pvc_hours={start_hour=10,start_min=00,stop_hour=11,stop_min=55}
 
 function check_activity (activity_hours) 
 	local ret = false
@@ -309,7 +323,7 @@ local thread_id = thrd.create(function()
 		while true do 
 			--创建子协程--登陆
 			if logon_thread_on ==false then 
-				sub_thread_1 = thrd.createSubThread(function()
+				sub_thread_logon = thrd.createSubThread(function()
 						logon_thread_on =  true
 						wwlog("before func_logon")
 						func_logon()
@@ -330,12 +344,12 @@ local thread_id = thrd.create(function()
 						end
 					}
 				)
-				thrd.setTimeout(45000,sub_thread_1)
+				thrd.setTimeout(45000,sub_thread_logon)
 			end 
 
 			---[[
 			if popup_thread_on == false then 
-				sub_thread_2 = thrd.createSubThread(function()	
+				sub_thread_popup = thrd.createSubThread(function()	
 						popup_thread_on = true
 						func_popup1()						
 					end
@@ -356,7 +370,7 @@ local thread_id = thrd.create(function()
 					}
 				)
 			end 
-			--thrd.setTimeout(30000,sub_thread_2)
+			--thrd.setTimeout(30000,sub_thread_popup)
 
 			--thrd.wait(sub_thread_id_2)
 			if check_activity(adventure_hours) then
@@ -364,17 +378,17 @@ local thread_id = thrd.create(function()
 				wwlog("adventure_time_flag = true")
 			else
 				adventure_time_flag = false
-				if sub_thread_3 ~= nil then
-					thrd.stop(sub_thread_3)
-					sub_thread_3=nil
+				if sub_thread_adventure ~= nil then
+					thrd.stop(sub_thread_adventure)
+					sub_thread_adventure=nil
 					go_back_thread_on = true
-					wwlog("thrd.stop(sub_thread_3)")
+					wwlog("thrd.stop(sub_thread_adventure)")
 				end
 				wwlog("adventure_time_flag = false")
 			end
 
 			if adventure_thread_on == false and adventure_time_flag ==true then 
-				sub_thread_3 = thrd.createSubThread(function()
+				sub_thread_adventure = thrd.createSubThread(function()
 						adventure_thread_on =  true
 						wwlog("before func_adventure()")
 						func_adventure()
@@ -398,8 +412,48 @@ local thread_id = thrd.create(function()
 				)
 			end
 			
+			if check_activity(pvc_hours) then
+				pvc_time_flag = true
+				wwlog("pvc_time_flag = true")
+			else
+				pvc_time_flag = false
+				if sub_thread_pvc ~= nil then
+					thrd.stop(sub_thread_pvc)
+					sub_thread_pvc=nil
+					go_back_thread_on = true
+					wwlog("thrd.stop(sub_thread_pvc)")
+				end
+				wwlog("pvc_time_flag = false")
+			end
+			
+			if pvc_thread_on == false and pvc_time_flag ==true then 
+				sub_thread_pvc = thrd.createSubThread(function()
+						pvc_thread_on =  true
+						wwlog("before func_battle_pvc()")
+						func_battle_pvc()
+						--因为sub thread 2比parent thread运行时间长，所以以下代码实际执行不到
+					end
+					,{
+						callBack = function()
+							--协程结束会调用，不论是错误、异常、正常结束
+							--mrsleep(1000)
+							wwlog("428 协程结束了", 0)					
+						end,
+						errorBack = function(err)
+							--协程错误结束，一般是引用空调用,err是字符串
+							wwlog("432 协程错误了:"..err,0)
+						end,
+						catchBack = function(exp)
+							--协程异常结束,异常是脚本调用了throw激发的,exp是table，exp.message是异常原因							
+							wwlog("436 协程异常了\n"..json.encode(exp),0)
+						end
+					}
+				)
+			end
+			
+						
 			if go_back_thread_on == true then 
-				sub_thread_4 = thrd.createSubThread(function()
+				sub_thread_goback = thrd.createSubThread(function()
 						go_back_thread_on =  false
 						wwlog("before func_go_back()")
 						func_go_back()
@@ -426,13 +480,13 @@ local thread_id = thrd.create(function()
 			local stage=func_get_stage()
 			if stage =="home_page" then 
 				wwlog("back to homepage")
-				if sub_thread_4 ~= nil then
-					thrd.stop(sub_thread_4)
-					sub_thread_4 = nil
-					wwlog("thrd.stop(sub_thread_4)")
+				if sub_thread_goback ~= nil then
+					thrd.stop(sub_thread_goback)
+					sub_thread_goback = nil
+					wwlog("thrd.stop(sub_thread_goback)")
 				end
-				if sub_thread_5 == nil then 
-				sub_thread_5 = thrd.createSubThread(function()
+				if sub_thread_rune == nil then 
+				sub_thread_rune = thrd.createSubThread(function()
 						
 						wwlog("before func_free_rune()")
 						func_free_rune()
@@ -454,7 +508,7 @@ local thread_id = thrd.create(function()
 						end
 					}
 				)
-				thrd.setTimeout(30000,sub_thread_5)
+				thrd.setTimeout(30000,sub_thread_rune)
 				end
 				
 			end 

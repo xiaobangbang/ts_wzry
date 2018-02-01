@@ -93,7 +93,93 @@ page_adventure.go_back.logmsg="左上角返回"
 
 
 
+page_battle={}
+page_battle.battle_mode={}
+page_battle.battle_mode.colors={{
+	{  298,  455, 0xf3eeec},
+	{  313,  456, 0xf3edea},
+	{  328,  457, 0xf3ece7},
+	{  360,  457, 0xf3ece7},
+	{  408,  455, 0xf3eeec},
+}}
+page_battle.battle_mode.logmsg="对战模式"
 
+page_battle.actual_battle={}
+page_battle.actual_battle.colors={{{  211,  438, 0xfdfdfd},{  213,  457, 0xb1caeb},{  238,  442, 0xfffefe},{  252,  443, 0xffffff},}}
+page_battle.actual_battle.logmsg="实战对抗"
+
+page_battle.pvc_drill={}
+page_battle.pvc_drill.colors={{{  900,  238, 0xfdfcfc},{  923,  240, 0xffffff},{  966,  233, 0xffffff},{ 1006,  234, 0xffffff},}}
+page_battle.pvc_drill.logmsg="人机练习"
+
+page_battle.arena_5v5={}
+page_battle.arena_5v5.colors={{{  194,   23, 0xffffff},{  217,   26, 0xffffff},{  194,  368, 0xffffff},{  244,  389, 0xfbcabb},{  278,  357, 0xffffff},}
+	,
+	{{  193,  368, 0xffffff},{  211,  398, 0xf8dccf},{  236,  377, 0xffffff},{  245,  393, 0xfad1c4},{  292,  374, 0xffffff},}
+	}
+page_battle.arena_5v5.logmsg="5v5 王者峡谷"
+
+
+page_battle.abc_mode_arena={}
+page_battle.abc_mode_arena.colors={{{  216,  212, 0xe6a42d},{  233,  221, 0xffffff},{  251,  224, 0xffffff},{  270,  224, 0xffffff},}}
+page_battle.abc_mode_arena.logmsg="人机-5v5 王者峡谷-入门模式"
+
+
+page_battle.isee_button={}
+page_battle.isee_button.colors={{{  530,  515, 0xe39b27},{  539,  518, 0xffffff},{  552,  516, 0xfffffe},{  560,  520, 0xffffff},}}
+page_battle.isee_button.logmsg="知道了"
+
+page_battle.team_match={}
+page_battle.team_match.colors={{{  570,  527, 0xdf9729},{  577,  527, 0xffffff},{  588,  537, 0xffffff},{  611,  538, 0xffffff},{  629,  530, 0xffffff},}}
+page_battle.team_match.logmsg="开始匹配"
+
+
+page_battle.enter_game={}
+page_battle.enter_game.colors={{{  508,  456, 0xdf9829},{  512,  463, 0xffffff},{  527,  461, 0xffffff},{  548,  459, 0xffffff},{  607,  457, 0xffffff},}}
+page_battle.enter_game.logmsg="进入游戏-黄色按钮"
+
+page_battle.choose_hero={}
+page_battle.choose_hero.colors={
+	{{   57,   55, 0x10aadd},{  990,  588, 0x6a6256},{  200,  119, 0x85eaff},{  154,  153, 0x71c6f4},},
+	{{   57,   55, 0x10aadd},{  990,  588, 0x6a6256},{   52,  139, 0xf0a57e},{   63,  162, 0xfcbb9a},},
+	{{   57,   55, 0x10aadd},{  990,  588, 0x6a6256},{   63,  387, 0xe3bec2},{   24,  396, 0x5e4330},},
+	{{   57,   55, 0x10aadd},{  990,  588, 0x6a6256},{  177,  266, 0x619dd4},{  195,  259, 0x6cb0e0},},
+	{{   57,   55, 0x10aadd},{  990,  588, 0x6a6256},{   31,  276, 0xf4d9d9},{   67,  267, 0xd6a3b1},},
+	{{   57,   55, 0x10aadd},{  990,  588, 0x6a6256},{  146,  530, 0x6a4444},{  161,  556, 0x695059},},
+	{{   57,   55, 0x10aadd},{  990,  588, 0x6a6256},{  184,  399, 0xf4dcde},{  171,  409, 0xf5cacc},}	
+	}
+page_battle.choose_hero.logmsg="选择英雄-准备战斗"
+
+page_battle.iamready={}
+page_battle.iamready.colors={{{   64,   57, 0x10b0e3},{ 1008,  591, 0xe5a22b},{ 1017,  595, 0xffffff},{ 1047,  603, 0xffffff},}}
+page_battle.iamready.logmsg="英雄选择完毕-确定"
+
+page_battle.press_anykey={}
+page_battle.press_anykey.colors={{{  497,  564, 0xffffff},{  526,  569, 0xffffff},{  552,  569, 0xffffff},{  616,  567, 0xffffff},}}
+page_battle.press_anykey.logmsg="点击屏幕继续"
+
+page_battle.go_on_button={}
+page_battle.go_on_button.colors={{{  538,  586, 0x39a9d9},{  546,  591, 0xffffff},{  560,  592, 0xffffff},{  587,  600, 0xffffff},}}
+page_battle.go_on_button.logmsg="继续按钮"
+
+page_battle.back_hall={}
+page_battle.back_hall.colors={{{  458,  605, 0x3688ca},{  467,  600, 0xffffff},{  513,  604, 0xffffff},{  538,  602, 0xffffff},}}
+page_battle.back_hall.logmsg="返回大厅"
+
+
+page_battle.go_on_1button={}
+page_battle.go_on_1button.colors={{{  424,  572, 0x39acdb},{  428,  583, 0xffffff},{  445,  578, 0xffffff},{  472,  584, 0xffffff},}}
+page_battle.go_on_1button.logmsg="超神-继续"
+
+page_battle.score_later={}
+page_battle.score_later.colors={{{  310,  501, 0x3aa2d7},{  315,  516, 0xffffff},{  327,  511, 0xffffff},{  340,  505, 0xffffff},}}
+page_battle.score_later.logmsg="好评-以后再说"
+
+
+
+page_battle.attack={}
+page_battle.attack.colors={{{ 1010,  523, 0xceeffb},{ 1018,  530, 0xc6ebfb},{ 1028,  538, 0xb3ddf5},{ 1044,  567, 0x7ab4d5},}}
+page_battle.attack.logmsg="右下角-攻击"
 
 
 page_rune={}
@@ -108,7 +194,7 @@ page_rune.fetch_rune.logmsg="铭文获取"
 
 page_rune.buy_free={}
 page_rune.buy_free.colors={{{  765,  602, 0xf32e38},{  766,  607, 0xf71016},{  698,  607, 0xffffff},{  707,  608, 0xffffff},}}
-page_rune.get_rune_award.click_xy={    728,  547}
+page_rune.buy_free.click_xy={    728,  547}
 page_rune.buy_free.logmsg="免费"
 --免费
 
@@ -173,6 +259,11 @@ page_popup.close_window4={}
 page_popup.close_window4.color = {{ 1056,  128, 0xfeeeff},{ 1067,  129, 0xfeeeff},{ 1067,  140, 0xfeeeff},{ 1061,  134, 0xfeeeff},}
 page_popup.close_window4.logmsg="活动窗口4，点击关闭"
 
+page_popup.close_window5={}		
+page_popup.close_window5.color = {{  950,   53, 0x34e2f2},{  967,   52, 0x2dcfe6},{  967,   69, 0x2ab7e9},{  959,   59, 0x2ec8e7},}
+page_popup.close_window5.logmsg="贵族降级，不恢复，点击关闭"
+
+
 page_popup.get_award_diamond={}		
 page_popup.get_award_diamond.color = {{  546,  272, 0xfafafc},{  571,  280, 0xfcf6fd},{  587,  294, 0x925dcd},{  569,  300, 0xe7dafc},}
 page_popup.get_award_diamond.click_xy={565,  440}
@@ -182,6 +273,12 @@ page_popup.get_award_rune={}
 page_popup.get_award_rune.color = {{  562,  273, 0xa6e5f1},{  578,  274, 0x49cae1},{  586,  288, 0x18b3e5},{  578,  298, 0x3ad9ed},{  570,  288, 0x5bd1ea},}
 page_popup.get_award_rune.click_xy={565,  440}
 page_popup.get_award_rune.logmsg="获得奖励-碎片"
+
+page_popup.get_award_hero_debris={}		
+page_popup.get_award_hero_debris.color = {{  546,  269, 0x273781},{  570,  268, 0xfcf8f8},{  577,  301, 0x746447},{  561,  321, 0x16234d},}
+page_popup.get_award_hero_debris.click_xy={565,  440}
+page_popup.get_award_hero_debris.logmsg="获得奖励-英雄碎片"
+
 
 page_popup.over_3hours={}		
 page_popup.over_3hours.color = {
@@ -210,6 +307,12 @@ page_popup.force_off_line={}
 page_popup.force_off_line.color = {{  649,  423, 0xe7a52d},{  663,  432, 0xffffff},{  654,  431, 0xffffff},{  692,  436, 0xffffff},}
 page_popup.force_off_line.logmsg="强制休息，请稍后再上线,点击确定，前台退出游戏"
 page_popup.force_off_line.wait=1800
+
+
+page_popup.reject={}		
+page_popup.reject.color = {{  350,  433, 0x38a6d9},{  355,  428, 0xffffff},{  362,  435, 0xffffff},{  396,  431, 0xffffff},{  396,  446, 0xffffff},}
+page_popup.reject.logmsg="拒绝组队邀请"
+
 
 page_login_entrance.button_besure_wx={}
 page_login_entrance.button_besure_wx.color={
@@ -304,6 +407,29 @@ end
 local Colors = {}
 
 
+Colors.func_list_pvc = function ()
+	local v_list = List.new()
+	List.pushlast(v_list,page_battle.battle_mode)
+	List.pushlast(v_list,page_battle.pvc_drill)
+	List.pushlast(v_list,page_battle.arena_5v5)
+	List.pushlast(v_list,page_battle.abc_mode_arena)	
+	List.pushlast(v_list,page_battle.isee_button)
+	List.pushlast(v_list,page_battle.team_match)
+	List.pushlast(v_list,page_battle.enter_game)	
+	List.pushlast(v_list,page_battle.choose_hero)
+	List.pushlast(v_list,page_battle.iamready)
+	List.pushlast(v_list,page_battle.press_anykey)
+	List.pushlast(v_list,page_battle.go_on_button)
+	List.pushlast(v_list,page_battle.back_hall)
+	List.pushlast(v_list,page_battle.go_on_1button)
+	List.pushlast(v_list,page_battle.score_later)
+	
+
+return v_list
+end
+
+
+
 Colors.func_list_login= function ()
 	local v_list = List.new()
 	List.pushlast(v_list,page_login_entrance.button_wx)
@@ -324,12 +450,14 @@ List.pushlast(v_list,page_popup.close_window1)
 List.pushlast(v_list,page_popup.close_window2)
 List.pushlast(v_list,page_popup.close_window3)
 List.pushlast(v_list,page_popup.close_window4)
+List.pushlast(v_list,page_popup.close_window5)
 List.pushlast(v_list,page_popup.get_award_diamond)
 List.pushlast(v_list,page_popup.get_award_rune)
+List.pushlast(v_list,page_popup.get_award_hero_debris)
 List.pushlast(v_list,page_popup.over_3hours)
 List.pushlast(v_list,page_popup.line_off)
 List.pushlast(v_list,page_popup.force_off_line)
-
+List.pushlast(v_list,page_popup.reject)
 
 return v_list
 end
